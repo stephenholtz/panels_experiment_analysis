@@ -15,9 +15,9 @@ end
 
 make_vids = 0;
 
-for i = 1:30
+for i = 1:60
     
-    stim_name = ['cond_' num2str(i) '_pat_' C(i).PatternName(12:(end-20))];
+    stim_name = ['cond_' num2str(i) '_pat_' C(i).PatternName(12:30)];
     
     save_file = fullfile(save_path,stim_name);
     
@@ -26,7 +26,7 @@ for i = 1:30
     snaps_handle = stimulus.MakeSnapshotTimeSeries(10);
     params_handle = stimulus.MakeParametersPage;
     
-    tfPlot.arenaSimulation.SaveSpaceTimeDiagram(save_file,std_handle,params_handle,snaps_handle);
+    panels_arena_simulation.SaveSpaceTimeDiagram(save_file,std_handle,params_handle,snaps_handle);
 %    tfPlot.arenaSimulation.SaveSpaceTimeDiagram(save_file,std_handle);
     
     if make_vids

@@ -147,7 +147,7 @@ for vn_str = {'overlaid_vel_null','bilat_vel_null'}
     xlabel({'Test Temporal Frequency (Hz)'},'fontsize',font_size_2)
     set(gca,'fontsize',font_size_2)
     axis([0.12 30 1 5])
-
+    
     annotation('Textbox','Position',[.6 .65 .8 .167],'String',vel_null_type_str,'Edgecolor','none','fontsize',font_size_2+2,'interpreter','none')
     
     % export the figure as a pdf
@@ -157,7 +157,7 @@ for vn_str = {'overlaid_vel_null','bilat_vel_null'}
         end
         
         saveas(figure_handle(1),fullfile(save_figure_location,figure_file_prefix));
-        export_fig(figure_handle(1),fullfile(save_figure_location,figure_file_prefix),'-pdf');
+        export_fig(figure_handle(1),fullfile(save_figure_location,figure_file_prefix),'-pdf',' -nocrop');
     end
     
 end
