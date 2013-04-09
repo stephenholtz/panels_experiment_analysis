@@ -154,7 +154,7 @@ end
         
         if strcmp(return_struct.daq_channel,'lmr') && return_struct.ps_offset_amt > 0
             for exp_num = 1:numel(experiment_group.parsed_data)
-                ps_mean = mean(experiment_group.parsed_data(exp_num).ps_data(condition_index).(return_struct.daq_channel)(:,(end-return_struct.ps_offset_amt):end),2);
+                ps_mean = nanmean(experiment_group.parsed_data(exp_num).ps_data(condition_index).(return_struct.daq_channel)(:,(end-return_struct.ps_offset_amt):end),2);
                 len=size(experiment_group.parsed_data(exp_num).data(condition_index).(return_struct.daq_channel),2);
                 all_responses{exp_num} = experiment_group.parsed_data(exp_num).data(condition_index).(return_struct.daq_channel)-repmat(ps_mean,1,len); %#ok<*AGROW>
             end

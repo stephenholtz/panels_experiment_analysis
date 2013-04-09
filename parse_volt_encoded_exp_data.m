@@ -7,7 +7,7 @@ SAMPLERATE              = 1000;
 
 % Split Needed Chans from the .daq file
 raw_data         = daqread(data_file);         
-encoded_signal  = raw_data(:,7); %  Changed from 6 since grounding more effectively around 3/2012
+encoded_signal  = raw_data(:,7);
 
 % Find all the times where adjacent voltage values differ by a
 % tolerance
@@ -52,6 +52,9 @@ for d_field = {'data','ps_data'}
         end
     end
 end
+for i = 1:numel(condition_lengths)
+    condition_attempts{i} = 0;
+end
 
 for value_index = 1:numel(end_value)
     current_block = start_value(value_index):end_value(value_index);
@@ -67,7 +70,10 @@ for value_index = 1:numel(end_value)
     else
         rep = size(parsed_exp_data.data(condition_number).left_amp,1) + 1;
     end
-
+    
+    % For debugging
+    condition_attempts{condition_number} = 1 + condition_attempts{condition_number};
+    
     if numel(current_block) >= condition_length;
         parsed_exp_data.data(condition_number).left_amp(rep,:)         = raw_data(current_block(1:condition_length),1)';
         parsed_exp_data.data(condition_number).x_pos(rep,:)            = raw_data(current_block(1:condition_length),4)';
@@ -78,6 +84,7 @@ for value_index = 1:numel(end_value)
         parsed_exp_data.data(condition_number).free(rep,:)             = raw_data(current_block(1:condition_length),6)';
         
         parsed_exp_data.data(condition_number).lmr(rep,:) = parsed_exp_data.data(condition_number).left_amp(rep,:) - parsed_exp_data.data(condition_number).right_amp(rep,:);
+        parsed_exp_data.data(condition_number).lpr(rep,:) = parsed_exp_data.data(condition_number).left_amp(rep,:) + parsed_exp_data.data(condition_number).right_amp(rep,:);
         
         % Get the pre stimulus (ps) data...
         % This depends on there being an opening closed loop segment!!!!
@@ -96,7 +103,49 @@ for value_index = 1:numel(end_value)
         parsed_exp_data.ps_data(condition_number).free(rep,:)             = raw_data(ps_block,6)';
         
         parsed_exp_data.ps_data(condition_number).lmr(rep,:) = parsed_exp_data.ps_data(condition_number).left_amp(rep,:) - parsed_exp_data.ps_data(condition_number).right_amp(rep,:);
+        parsed_exp_data.ps_data(condition_number).lpr(rep,:) = parsed_exp_data.ps_data(condition_number).left_amp(rep,:) + parsed_exp_data.ps_data(condition_number).right_amp(rep,:);
+    else
         
     end
+
+end
+
+% Fill in NaNs where there were not sucessful trials.
+for condition_number = 1:numel(condition_lengths)
+
+    if isempty(parsed_exp_data.data(condition_number).lpr)
+
+        condition_length = condition_lengths(condition_number)*SAMPLERATE;
+
+        % Fill in the data fields
+        nan_data = nan(1,condition_length);
+
+        parsed_exp_data.data(condition_number).left_amp(rep,:)         = nan_data;
+        parsed_exp_data.data(condition_number).x_pos(rep,:)            = nan_data;
+        parsed_exp_data.data(condition_number).right_amp(rep,:)        = nan_data;
+        parsed_exp_data.data(condition_number).y_pos(rep,:)            = nan_data;
+        parsed_exp_data.data(condition_number).wbf(rep,:)              = nan_data;
+        parsed_exp_data.data(condition_number).voltage(rep,:)          = nan_data;
+        parsed_exp_data.data(condition_number).free(rep,:)             = nan_data;
+
+        parsed_exp_data.data(condition_number).lmr(rep,:) = nan_data;
+        parsed_exp_data.data(condition_number).lpr(rep,:) = nan_data;
+        
+        % Fill in the ps_data fields
+        nan_ps_data = nan(1,interspersal_length*SAMPLERATE);
+
+        parsed_exp_data.ps_data(condition_number).left_amp(rep,:)         = nan_ps_data;
+        parsed_exp_data.ps_data(condition_number).x_pos(rep,:)            = nan_ps_data;
+        parsed_exp_data.ps_data(condition_number).right_amp(rep,:)        = nan_ps_data;
+        parsed_exp_data.ps_data(condition_number).y_pos(rep,:)            = nan_ps_data;
+        parsed_exp_data.ps_data(condition_number).wbf(rep,:)              = nan_ps_data;
+        parsed_exp_data.ps_data(condition_number).voltage(rep,:)          = nan_ps_data;
+        parsed_exp_data.ps_data(condition_number).free(rep,:)             = nan_ps_data;
+
+        parsed_exp_data.ps_data(condition_number).lmr(rep,:) = nan_ps_data;
+        parsed_exp_data.ps_data(condition_number).lpr(rep,:) = nan_ps_data;
+
+    end
+end
 
 end

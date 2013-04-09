@@ -1,8 +1,9 @@
 function quality = is_quality_experiment(experiment)
 % Makes sure a minimum number of repetitions are up to snuff.
 
-min_reps = 2;
-min_wbf = 1.5;
+min_reps = 0;
+min_wbf = 1.35;
+
 min_pct_complete = .9;
 quality = 1;
 
