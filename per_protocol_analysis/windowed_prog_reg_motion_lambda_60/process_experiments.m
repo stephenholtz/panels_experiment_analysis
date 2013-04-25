@@ -13,8 +13,8 @@ addpath(fullfile([fileparts(mfilename('fullpath')) filesep '..' filesep '..']));
 %==========================================================================
 experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/windowed_prog_reg_motion_lambda_60';
 
-experiment_groups(1).folder = 'gmr_11d03ad_gal80ts_kir21';
-experiment_groups(1).name   = 'R11d03AD;+/Kir2.1(DL)';
+experiment_groups(1).folder = 'gmr_48a08ad_gal80ts_kir21';
+experiment_groups(1).name   = 'R8a08AD;+/Kir2.1(DL)';
 
 % Load in all of the experiment groups via their saved summaries (creating saved summaries if they don't exist)
 %==========================================================================
@@ -49,275 +49,275 @@ clear overwrite_saved_summaries i
 % @ 'Users/stephenholtz/panels_experiments/protocols/windowed_prog_reg_motion_lambda_60/windowed_prog_reg_motion_lambda_60.m';
 
 i=1;%      1
-cond_group(i).name = 'prog_30to60';
-cond_group(i).description = 'Progressive Motion 30-60';
+cond_group(i).name = 'reg_30to60';
+cond_group(i).description = 'Regressive Motion 30-60';
 cond_group(i).inds =  ...
                 [2,9;...
                  4,11;...
                  6,13;...
                  8,15]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [30 30 30 30];
 cond_group(i).pix = [8 8 8 8];
 cond_group(i).contrast_vals = [1 1 1 1 1 1];
 cond_group(i).arena_inds = (53:60);
-cond_group(i).dir = 'Progressive';
+cond_group(i).dir = 'Regressive';
 cond_group(i).note = '30-60';
 
 i=i+1;%    2
-cond_group(i).name = 'prog_60to90';
-cond_group(i).description = 'Progressive Motion 60-90';
+cond_group(i).name = 'reg_60to90';
+cond_group(i).description = 'Regressive Motion 60-90';
 cond_group(i).inds =  ...
                 [26,33;...
                  28,35;...
                  30,37;...
                  32,39]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [30 30 30 30];
 cond_group(i).pix = [8 8 8 8];
 cond_group(i).contrast_vals = [1 1 1 1 1 1];
 cond_group(i).arena_inds = (61:68);
-cond_group(i).dir = 'Progressive';
+cond_group(i).dir = 'Regressive';
 cond_group(i).note = '60-90';
 
 i=i+1;%    3
-cond_group(i).name = 'prog_90to120';
-cond_group(i).description = 'Progressive Motion 90-120';
+cond_group(i).name = 'reg_90to120';
+cond_group(i).description = 'Regressive Motion 90-120';
 cond_group(i).inds =  ...
                 [50,57;...
                  52,59;...
                  54,61;...
                  56,63]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [30 30 30 30];
 cond_group(i).pix = [8 8 8 8];
 cond_group(i).contrast_vals = [1 1 1 1 1 1];
 cond_group(i).arena_inds = (69:76);
-cond_group(i).dir = 'Progressive';
+cond_group(i).dir = 'Regressive';
 cond_group(i).note = '90-120';
 
 i=i+1;%    4
-cond_group(i).name = 'prog_120to150';
-cond_group(i).description = 'Progressive Motion 120-150';
+cond_group(i).name = 'reg_120to150';
+cond_group(i).description = 'Regressive Motion 120-150';
 cond_group(i).inds =  ...
                 [74,81;...
                  76,83;...
                  78,85;...
                  80,87]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [30 30 30 30];
 cond_group(i).pix = [8 8 8 8];
 cond_group(i).contrast_vals = [1 1 1 1 1 1];
 cond_group(i).arena_inds = (77:84);
-cond_group(i).dir = 'Progressive';
+cond_group(i).dir = 'Regressive';
 cond_group(i).note = '120-150';
 
 i=i+1;%    5
-cond_group(i).name = 'prog_30to90';
-cond_group(i).description = 'Progressive Motion 30-90';
+cond_group(i).name = 'reg_30to90';
+cond_group(i).description = 'Regressive Motion 30-90';
 cond_group(i).inds =  ...
                 [98, 105;...
                  100,107;...
                  102,109;...
                  104,111]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [60 60 60 60];
 cond_group(i).pix = [8 8 8 8];
 cond_group(i).contrast_vals = [1 1 1 1 1 1];
 cond_group(i).arena_inds = (53:68);
-cond_group(i).dir = 'Progressive';
+cond_group(i).dir = 'Regressive';
 cond_group(i).note = '30-90';
 
 i=i+1;%    6
-cond_group(i).name = 'prog_60to120';
-cond_group(i).description = 'Progressive Motion 60-120';
+cond_group(i).name = 'reg_60to120';
+cond_group(i).description = 'Regressive Motion 60-120';
 cond_group(i).inds =  ...
                 [122,129;...
                  124,131;...
                  126,133;...
                  128,135]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [60 60 60 60];
 cond_group(i).pix = [8 8 8 8];
 cond_group(i).contrast_vals = [1 1 1 1 1 1];
 cond_group(i).arena_inds = (61:76);
-cond_group(i).dir = 'Progressive';
+cond_group(i).dir = 'Regressive';
 cond_group(i).note = '60-120';
 
 i=i+1;%    7
-cond_group(i).name = 'prog_90to150';
-cond_group(i).description = 'Progressive Motion 90-150';
+cond_group(i).name = 'reg_90to150';
+cond_group(i).description = 'Regressive Motion 90-150';
 cond_group(i).inds =  ...
                 [146,153;...
                  148,155;...
                  150,157;...
                  152,159]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [60 60 60 60];
 cond_group(i).pix = [8 8 8 8];
 cond_group(i).contrast_vals = [1 1 1 1 1 1];
 cond_group(i).arena_inds = (69:84);
-cond_group(i).dir = 'Progressive';
+cond_group(i).dir = 'Regressive';
 cond_group(i).note = '90-150';
 
 i=i+1;%    8
-cond_group(i).name = 'prog_30to150';
-cond_group(i).description = 'Progressive Motion 30-150';
+cond_group(i).name = 'reg_30to150';
+cond_group(i).description = 'Regressive Motion 30-150';
 cond_group(i).inds =  ...
                 [170,177;...
                  172,179;...
                  174,181;...
                  176,183]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [120 120 120 120];
 cond_group(i).pix = [8 8 8 8];
 cond_group(i).contrast_vals = [1 1 1 1 1 1];
 cond_group(i).arena_inds = (53:84);
-cond_group(i).dir = 'Progressive';
+cond_group(i).dir = 'Regressive';
 cond_group(i).note = '30-150';
 
 i=i+1;%    9
-cond_group(i).name = 'reg_30to60';
-cond_group(i).description = 'Regressive Motion 30-60';
+cond_group(i).name = 'prog_30to60';
+cond_group(i).description = 'Progressive Motion 30-60';
 cond_group(i).inds =  ...
                 [10,1;...
                  12,3;...
                  14,5;...
                  16,7]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [30 30 30 30];
 cond_group(i).pix = [8 8 8 8];
 cond_group(i).contrast_vals = [1 1 1 1 1 1];
 cond_group(i).arena_inds = (29:36);
-cond_group(i).dir = 'Regressive';
+cond_group(i).dir = 'Progressive';
 cond_group(i).note = '30-60';
 
 i=i+1;%    10
-cond_group(i).name = 'reg_60to90';
-cond_group(i).description = 'Regressive Motion 60-90';
+cond_group(i).name = 'prog_60to90';
+cond_group(i).description = 'Progressive Motion 60-90';
 cond_group(i).inds =  ...
                 [34,25;...
                  36,27;...
                  38,29;...
                  40,31]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [30 30 30 30];
 cond_group(i).pix = [8 8 8 8];
 cond_group(i).contrast_vals = [1 1 1 1 1 1];
 cond_group(i).arena_inds = (21:28);
-cond_group(i).dir = 'Regressive';
+cond_group(i).dir = 'Progressive';
 cond_group(i).note = '60-90';
 
 i=i+1;%    11
-cond_group(i).name = 'reg_90to120';
-cond_group(i).description = 'Regressive Motion 90-120';
+cond_group(i).name = 'prog_90to120';
+cond_group(i).description = 'Progressive Motion 90-120';
 cond_group(i).inds =  ...
                 [58,49;...
                  60,51;...
                  62,53;...
                  64,55]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [30 30 30 30];
 cond_group(i).pix = [8 8 8 8];
 cond_group(i).contrast_vals = [1 1 1 1 1 1];
 cond_group(i).arena_inds = (13:20);
-cond_group(i).dir = 'Regressive';
+cond_group(i).dir = 'Progressive';
 cond_group(i).note = '90-120';
 
 i=i+1;%    12
-cond_group(i).name = 'reg_120to150';
-cond_group(i).description = 'Regressive Motion 120-150';
+cond_group(i).name = 'prog_120to150';
+cond_group(i).description = 'Progressive Motion 120-150';
 cond_group(i).inds =  ...
                 [82,73;...
                  84,75;...
                  86,77;...
                  88,79]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [30 30 30 30];
 cond_group(i).pix = [8 8 8 8];
 cond_group(i).contrast_vals = [1 1 1 1 1 1];
 cond_group(i).arena_inds = (5:12);
-cond_group(i).dir = 'Regressive';
+cond_group(i).dir = 'Progressive';
 cond_group(i).note = '120-150';
 
 i=i+1;%    13
-cond_group(i).name = 'reg_30to90';
-cond_group(i).description = 'Regressive Motion 30-90';
+cond_group(i).name = 'prog_30to90';
+cond_group(i).description = 'Progressive Motion 30-90';
 cond_group(i).inds =  ...
                 [106,97;...
                  108,99;...
                  110,101;...
                  112,103]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [60 60 60 60];
 cond_group(i).pix = [8 8 8 8];
 cond_group(i).contrast_vals = [1 1 1 1 1 1];
 cond_group(i).arena_inds = (21:36);
-cond_group(i).dir = 'Regressive';
+cond_group(i).dir = 'Progressive';
 cond_group(i).note = '30-90';
 
 i=i+1;%    14
-cond_group(i).name = 'reg_60to120';
-cond_group(i).description = 'Regressive Motion 60-120';
+cond_group(i).name = 'prog_60to120';
+cond_group(i).description = 'Progressive Motion 60-120';
 cond_group(i).inds =  ...
                 [130,121;...
                  132,123;...
                  134,125;...
                  136,127]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [60 60 60 60];
 cond_group(i).pix = [8 8 8 8];
 cond_group(i).contrast_vals = [1 1 1 1 1 1];
 cond_group(i).arena_inds = (13:28);
-cond_group(i).dir = 'Regressive';
+cond_group(i).dir = 'Progressive';
 cond_group(i).note = '60-120';
 
 i=i+1;%    15
-cond_group(i).name = 'reg_90to150';
-cond_group(i).description = 'Regressive Motion 90-150';
+cond_group(i).name = 'prog_90to150';
+cond_group(i).description = 'Progressive Motion 90-150';
 cond_group(i).inds =  ...
                 [154,145;...
                  156,147;...
                  158,149;...
                  160,151]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [60 60 60 60];
 cond_group(i).pix = [8 8 8 8];
 cond_group(i).contrast_vals = [1 1 1 1 1 1];
 cond_group(i).arena_inds = (5:20);
-cond_group(i).dir = 'Regressive';
+cond_group(i).dir = 'Progressive';
 cond_group(i).note = '90-150';
 
 i=i+1;%    16
-cond_group(i).name = 'reg_30to150';
-cond_group(i).description = 'Regressive Motion 30-150';
+cond_group(i).name = 'prog_30to150';
+cond_group(i).description = 'Progressive Motion 30-150';
 cond_group(i).inds =  ...
                 [178,169;...
                  180,171;...
                  182,173;...
                  184,175]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [120 120 120 120];
 cond_group(i).pix = [8 8 8 8];
 cond_group(i).contrast_vals = [1 1 1 1 1 1];
 cond_group(i).arena_inds = (5:36);
-cond_group(i).dir = 'Regressive';
+cond_group(i).dir = 'Progressive';
 cond_group(i).note = '30-150';
 
 i=i+1;%    17
@@ -328,13 +328,13 @@ cond_group(i).inds =  ...
                  20,19;...
                  22,21;...
                  24,23]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [30 30 30 30];
 cond_group(i).pix = [8 8 8 8];
 cond_group(i).contrast_vals = [1 1 1 1 1 1];
 cond_group(i).arena_inds = (53:60);
-cond_group(i).dir = 'Regressive';
+cond_group(i).dir = 'Both';
 cond_group(i).note = '30-60';
 
 i=i+1;%    18
@@ -345,7 +345,7 @@ cond_group(i).inds =  ...
                  44,43;...
                  46,45;...
                  48,47]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [30 30 30 30];
 cond_group(i).pix = [8 8 8 8];
@@ -362,7 +362,7 @@ cond_group(i).inds =  ...
                  68,67;...
                  70,69;...
                  72,71]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [30 30 30 30];
 cond_group(i).pix = [8 8 8 8];
@@ -379,7 +379,7 @@ cond_group(i).inds =  ...
                  92,91;...
                  94,93;...
                  96,95]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [30 30 30 30];
 cond_group(i).pix = [8 8 8 8];
@@ -396,7 +396,7 @@ cond_group(i).inds =  ...
                  116,115;...
                  118,117;...
                  120,119]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [60 60 60 60];
 cond_group(i).pix = [8 8 8 8];
@@ -413,7 +413,7 @@ cond_group(i).inds =  ...
                  140,139;...
                  142,141;...
                  144,143]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [60 60 60 60];
 cond_group(i).pix = [8 8 8 8];
@@ -430,7 +430,7 @@ cond_group(i).inds =  ...
                  164,163;...
                  166,165;...
                  168,167]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [60 60 60 60];
 cond_group(i).pix = [8 8 8 8];
@@ -439,7 +439,7 @@ cond_group(i).arena_inds = (69:84);
 cond_group(i).dir = 'Both';
 cond_group(i).note = '90-150';
 
-i=i+1;%    8
+i=i+1;%    24
 cond_group(i).name = 'both_30to150';
 cond_group(i).description = 'Both Halves Motion 30-150';
 cond_group(i).inds =  ...
@@ -447,7 +447,7 @@ cond_group(i).inds =  ...
                  188,187;...
                  190,189;...
                  192,191]; %
-cond_group(i).flip_inds = [0*ones(numel(cond_group(i).inds),1), 1*ones(numel(cond_group(i).inds),1)];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = [.5 4 8 16];
 cond_group(i).window = [120 120 120 120];
 cond_group(i).pix = [8 8 8 8];

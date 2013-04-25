@@ -4,16 +4,16 @@
 addpath(genpath('/Users/stephenholtz/matlab-utils')) % add matlab utilities
 addpath(genpath('~/panels_experiments'));
 
-C = windowed_prog_reg_motion_lambda_60;
+C = window_test_up_down_sq_wave_motion_2px_6px;
 C = C.experiment;
 
-save_path = '/Users/stephenholtz/temp_space_time/windowed_prog_reg_motion_lambda_60/2';
+save_path = '/Users/stephenholtz/temp_space_time/window_test_up_down_sq_wave_motion_2px_6px';
 
 if ~exist(save_path,'dir')
     mkdir(save_path)
 end
 
-make_vids = 0;
+make_vids = 1;
 
 for i = 1:numel(C)
     
