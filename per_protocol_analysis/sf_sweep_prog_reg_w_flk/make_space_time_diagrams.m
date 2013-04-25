@@ -4,6 +4,7 @@
 addpath(genpath('/Users/stephenholtz/matlab-utils')) % add matlab utilities
 addpath(genpath('~/panels_experiments'));
 
+% Load in conditions from the experimental protocol
 C = sf_sweep_prog_reg_w_flk;
 C = C.experiment;
 

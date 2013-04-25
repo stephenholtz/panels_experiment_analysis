@@ -5,7 +5,7 @@ function experiment_group = import_experiment_group(experiment_group_folder,save
 
     [~,experiment_folder] = returnDirFolderList(experiment_group_folder);
     [~,experiment_group_name] = fileparts(experiment_group_folder);
-    
+        
     exp_num = 1;
     for i = 1:numel(experiment_folder)
         
@@ -24,6 +24,11 @@ function experiment_group = import_experiment_group(experiment_group_folder,save
         
         clear tmp_experiment
         
+    end
+    
+    if ~exist('experiment_group','var')
+        experiment_group = struct([]);
+        fprintf('\b No Experiments were OK. Saving Empty experiment_group\n')
     end
     
     % Save the grouped experiment in the same folder

@@ -1,11 +1,13 @@
 function quality = is_quality_experiment(experiment)
 % Makes sure a minimum number of repetitions are up to snuff.
 
-min_reps = 0;
-min_wbf = 1.35;
+min_reps = 1;
+min_wbf = 1.4;
 
 min_pct_complete = .9;
 quality = 1;
+
+verbose = 0;
 
 for i = 1:numel(experiment.parsed_data.data)
     for c = 1:size(experiment.parsed_data.data,2)
@@ -19,6 +21,7 @@ for i = 1:numel(experiment.parsed_data.data)
         end
         
         if suc_reps < min_reps
+            if verbose; fprintf('\n\tBad Condition: %d\n',c); end %#ok<*UNRCH>
             quality = 0;
             return
         end

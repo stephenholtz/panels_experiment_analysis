@@ -13,8 +13,8 @@ addpath(fullfile([fileparts(mfilename('fullpath')) filesep '..' filesep '..']));
 %==========================================================================
 experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/sf_sweep_prog_reg_w_flk';
 
-experiment_groups(1).folder = 'gmr_29g11dbd_gal80ts_kir21';
-experiment_groups(1).name   = '+;R29g11DBD/Kir2.1(DL)';
+experiment_groups(1).folder = 'gmr_11d03ad_gal80ts_kir21';
+experiment_groups(1).name   = '11d03AD;+/Kir2.1(DL)';
 
 % Load in all of the experiment groups via their saved summaries (creating saved summaries if they don't exist)
 %==========================================================================
@@ -52,8 +52,8 @@ clear overwrite_saved_summaries i
 % Regressive motion
 % Progressive motion + flicker
 % Regressive motion + flicker
-% Flicker
 % Both sides motion 
+% Flicker
 
 %-Progressive--------------------------------------------------------------
 i=1;%      1
@@ -396,37 +396,8 @@ cond_group(i).arena_inds = 53:68;
 cond_group(i).dir = 'Regressive';
 cond_group(i).note = '30-90';
 
-%-Flicker--------------------------------------------------------------
-i=i+1;%    25
-cond_group(i).name = 'flicker_4px';
-cond_group(i).description = 'Flicker 4 Pix';
-cond_group(i).inds = [1,2; 3,4; 5,6]; %
-cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
-cond_group(i).pix = [4 4 4];
-cond_group(i).lam = cond_group(i).pix*2*3.75;
-cond_group(i).tfs = [2 6 18];
-cond_group(i).window = [60 60 60];
-cond_group(i).contrast_vals = [1 1 1];
-cond_group(i).arena_inds = 53:68;
-cond_group(i).dir = 'Flicker';
-cond_group(i).note = '30-90';
-
-i=i+1;%    26
-cond_group(i).name = 'flicker_16px';
-cond_group(i).description = 'Flicker 16 Pix';
-cond_group(i).inds = [7,8; 9,10; 11,12];
-cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
-cond_group(i).pix = [16 16 16];
-cond_group(i).lam = cond_group(i).pix*2*3.75;
-cond_group(i).tfs = [2 6 18];
-cond_group(i).window = [60 60 60];
-cond_group(i).contrast_vals = [1 1 1];
-cond_group(i).arena_inds = 53:68;
-cond_group(i).dir = 'Flicker';
-cond_group(i).note = '30-90';
-
 %-Both Sides------------------------------------------------------
-i = 1+i;%  27
+i = 1+i;%  25
 cond_group(i).name = 'both_sides_2px';
 cond_group(i).description = 'Both Sides Motion 2 Pix';
 cond_group(i).inds =  [157,158; 159,160; 163,164];
@@ -440,7 +411,7 @@ cond_group(i).arena_inds = 53:68;
 cond_group(i).dir = 'Both Sides';
 cond_group(i).note = '30-90';
 
-i = 1+i;%  28
+i = 1+i;%  26
 cond_group(i).name = 'both_sides_4px';
 cond_group(i).description = 'Motion Both Sides4 Pix';
 cond_group(i).inds =  [163,164; 165,166; 167,168];
@@ -454,7 +425,7 @@ cond_group(i).arena_inds = 53:68;
 cond_group(i).dir = 'Both Sides';
 cond_group(i).note = '30-90';
 
-i = 1+i;%  29
+i = 1+i;%  27
 cond_group(i).name = 'both_sides_6px';
 cond_group(i).description = 'Motion Both Sides6 Pix';
 cond_group(i).inds =  [169,170; 171,172; 173,174];
@@ -468,7 +439,7 @@ cond_group(i).arena_inds = 53:68;
 cond_group(i).dir = 'Both Sides';
 cond_group(i).note = '30-90';
 
-i=i+1;%    30
+i=i+1;%    28
 cond_group(i).name = 'both_sides_8px';
 cond_group(i).description = 'Motion Both Sides8 Pix';
 cond_group(i).inds =  [175,176; 177,178; 179,180];
@@ -482,7 +453,7 @@ cond_group(i).arena_inds = 53:68;
 cond_group(i).dir = 'Both Sides';
 cond_group(i).note = '30-90';
 
-i=i+1;%    31
+i=i+1;%    29
 cond_group(i).name = 'both_sides_12px';
 cond_group(i).description = 'Motion Both Sides12 Pix';
 cond_group(i).inds =  [181,182; 183,184; 185,186];
@@ -496,7 +467,7 @@ cond_group(i).arena_inds = 53:68;
 cond_group(i).dir = 'Both Sides';
 cond_group(i).note = '30-90';
 
-i=i+1;%    32
+i=i+1;%    30
 cond_group(i).name = 'both_sides_16px';
 cond_group(i).description = 'Motion Both Sides16 Pix';
 cond_group(i).inds =  [187,188; 189,190; 191,192];
@@ -508,6 +479,35 @@ cond_group(i).window = [60 60 60];
 cond_group(i).contrast_vals = [1 1 1];
 cond_group(i).arena_inds = 53:68;
 cond_group(i).dir = 'Both Sides';
+cond_group(i).note = '30-90';
+
+%-Flicker--------------------------------------------------------------
+i=i+1;%    31
+cond_group(i).name = 'flicker_4px';
+cond_group(i).description = 'Flicker 4 Pix';
+cond_group(i).inds = [1,2; 3,4; 5,6]; %
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
+cond_group(i).pix = [4 4 4];
+cond_group(i).lam = cond_group(i).pix*2*3.75;
+cond_group(i).tfs = [2 6 18];
+cond_group(i).window = [60 60 60];
+cond_group(i).contrast_vals = [1 1 1];
+cond_group(i).arena_inds = 53:68;
+cond_group(i).dir = 'Flicker';
+cond_group(i).note = '30-90';
+
+i=i+1;%    32
+cond_group(i).name = 'flicker_16px';
+cond_group(i).description = 'Flicker 16 Pix';
+cond_group(i).inds = [7,8; 9,10; 11,12];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
+cond_group(i).pix = [16 16 16];
+cond_group(i).lam = cond_group(i).pix*2*3.75;
+cond_group(i).tfs = [2 6 18];
+cond_group(i).window = [60 60 60];
+cond_group(i).contrast_vals = [1 1 1];
+cond_group(i).arena_inds = 53:68;
+cond_group(i).dir = 'Flicker';
 cond_group(i).note = '30-90';
 
 % Pull out conditions from experiment groups
@@ -541,6 +541,7 @@ for group_num = 1:numel(experiment_groups)
     summ_data.mean_turn_resp(group_num) = a{1};
 end
 
+summ_data.cond_groups = cond_group;
 summ_data.overall_mean_turn_resp = mean(summ_data.mean_turn_resp);
 
 for exp_grp_num = 1:numel(experiment_groups)
