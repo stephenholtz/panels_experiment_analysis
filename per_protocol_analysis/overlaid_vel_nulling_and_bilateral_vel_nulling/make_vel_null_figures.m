@@ -141,7 +141,7 @@ for exp_grp_num = 1:2;
         % plot the log plot
         subplot('Position',log_plot_position)
         
-        lp=semilogx(test_temp_freq_values,vel_null.(vel_null_type_str)(1).null_contrast','Color',[0 0 0],'Linewidth',2);
+        lp=semilogx(test_temp_freq_values,vel_null.(vel_null_type_str)(exp_grp_num).null_contrast','Color',[0 0 0],'Linewidth',2);
 
         box off;
         title('Velocity Nulling','fontsize',font_size_2)

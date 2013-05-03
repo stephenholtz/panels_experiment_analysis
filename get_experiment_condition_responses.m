@@ -152,7 +152,7 @@ end
     function all_responses = get_all_responses(current_condition_set,current_condition_iter)
         condition_index = return_struct.inds(current_condition_set,current_condition_iter);
         
-        if strcmp(return_struct.daq_channel,'lmr') && return_struct.ps_offset_amt > 0
+        if (strcmp(return_struct.daq_channel,'lmr') || strcmp(return_struct.daq_channel,'lpr')) && return_struct.ps_offset_amt > 0
             for exp_num = 1:numel(experiment_group.parsed_data)
                 ps_mean = nanmean(experiment_group.parsed_data(exp_num).ps_data(condition_index).(return_struct.daq_channel)(:,(end-return_struct.ps_offset_amt):end),2);
                 len=size(experiment_group.parsed_data(exp_num).data(condition_index).(return_struct.daq_channel),2);
@@ -165,7 +165,8 @@ end
         end
         %all_responses{exp_num}(repetition_num,timeseries)
 
-        if strcmp(return_struct.daq_channel,'lmr') && return_struct.flip_condition(current_condition_set,current_condition_iter);
+        if (strcmp(return_struct.daq_channel,'lmr') || (strcmp(return_struct.daq_channel,'lpr') && return_struct.ps_offset_amt > 0)) ...
+           && return_struct.flip_condition(current_condition_set,current_condition_iter)
             for exp_num = 1:numel(all_responses)
                 all_responses{exp_num} = -all_responses{exp_num};
             end

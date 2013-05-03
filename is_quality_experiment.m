@@ -2,12 +2,12 @@ function quality = is_quality_experiment(experiment)
 % Makes sure a minimum number of repetitions are up to snuff.
 
 min_reps = 1;
-min_wbf = 1.4;
+min_wbf = 1;
 
-min_pct_complete = .9;
+min_pct_complete = .85;
 quality = 1;
 
-verbose = 0;
+verbose = 1;
 
 for i = 1:numel(experiment.parsed_data.data)
     for c = 1:size(experiment.parsed_data.data,2)
