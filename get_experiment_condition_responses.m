@@ -81,7 +81,7 @@ for current_condition_set = 1:size(return_struct.inds,1);
                 % them below each other while iterating. This will require one
                 % additional averaging step outside of this loop.
                 for j = 1:numel(all_responses)
-                    temp_avg_cell{j} = return_struct.timeseries_oper(all_responses{j},2);
+                    temp_avg_cell{j} = return_struct.timeseries_oper(all_responses{j}',1)';
                 end
                 for j = 1:numel(temp_avg_cell)
                     temp_avg_cell{j} = return_struct.average_oper(temp_avg_cell{j},1);
@@ -171,6 +171,17 @@ end
                 all_responses{exp_num} = -all_responses{exp_num};
             end
         end
+        
+        if (strcmp(return_struct.daq_channel,'lmr') || ...
+                strcmp(return_struct.daq_channel,'r_wba') || ...
+                strcmp(return_struct.daq_channel,'l_wba'))...
+            && return_struct.normalization_val ~=1
+            
+            for exp_num = 1:numel(all_responses)
+                all_responses{exp_num} = return_struct.normalization_val*all_responses{exp_num};
+            end
+        end
+        
     end
 
     function cell_out = combine_cell_cols(cell_in)

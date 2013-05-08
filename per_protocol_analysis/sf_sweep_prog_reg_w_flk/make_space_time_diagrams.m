@@ -18,7 +18,7 @@ make_stds = 1;
 make_vids = 0;
 make_gifs = 0;
 
-for i = 1:numel(C)
+for i = 112%1:12%numel(C)
     
     stim_name = ['cond_' num2str(i) '_' C(i).PatternName];
     
