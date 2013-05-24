@@ -5,27 +5,75 @@
 addpath(genpath('/Users/stephenholtz/matlab-utils')) % add matlab utilities
 addpath(fullfile([fileparts(mfilename('fullpath')) filesep '..' filesep '..'])); % add the panels_experiment_analysis directory in the silliest way possible
 
-% Load in the data if needed
-experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/jct_telethon/';
-if ~exist('summ_data','var')
-    load(fullfile(experiment_group_folder_loc,'summ_data'));
-end
+experiment_set = 2;
+switch experiment_set
+    case 1 % New L1 stuff
+        exp_comp_groups(1).name = 'control'; %
+        exp_comp_groups(1).inds = 1;
+        exp_comp_groups(2).name = 'old_L1_vs_controls'; %
+        exp_comp_groups(2).inds = [1 3];
+        exp_comp_groups(3).name = 'new_good_L1_vs_controls'; %
+        exp_comp_groups(3).inds = [1 2];
+        exp_comp_groups(4).name = 'new_ok_L1_vs_controls'; %
+        exp_comp_groups(4).inds = [1 4];
+        exp_comp_groups(5).name = 'new_poor_L1_vs_controls'; %
+        exp_comp_groups(5).inds = [1 6];
+        exp_comp_groups(6).name = 'new_old_L1_vs_controls'; %
+        exp_comp_groups(6).inds = [1 2 3];
+        exp_comp_groups(6).name = 'good_L1_vs_controls'; %
+        exp_comp_groups(6).inds = [1 2 3 4];
 
-save_figure_location = '/Users/stephenholtz/local_experiment_copies/figures/jct_telethon';
+        % Load in the data if needed
+        experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/L1_telethon_flies/';
+        if ~exist('summ_data','var')
+            load(fullfile(experiment_group_folder_loc,'summ_data'));
+        end
+        save_figure_location = '/Users/stephenholtz/local_experiment_copies/figures/L1_telethon_flies';
+    
+    case 2 % New medulla stuff
+        exp_comp_groups(1).name = 'Tm3_vs_controls'; %
+        exp_comp_groups(1).inds = [1 2 3];
+        exp_comp_groups(2).name = 'Tm4_vs_controls'; %
+        exp_comp_groups(2).inds = [1 4];
+        exp_comp_groups(3).name = 'T4_T5_vs_controls'; %
+        exp_comp_groups(3).inds = [1 5];
+ 
+        % Load in the data if needed
+        experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/medulla_jct_telethon/';
+        if ~exist('summ_data','var')
+            load(fullfile(experiment_group_folder_loc,'summ_data'));
+        end
+        save_figure_location = '/Users/stephenholtz/local_experiment_copies/figures/medulla_jct_telethon';
+    case 3 % New medulla stuff pt2
+        exp_comp_groups(1).name = 'controls'; %
+        exp_comp_groups(1).inds = [1];
+
+        % Load in the data if needed
+        experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/medulla_jct_telethon/';
+        if ~exist('summ_data','var')
+            load(fullfile(experiment_group_folder_loc,'summ_data'));
+        end
+        save_figure_location = '/Users/stephenholtz/local_experiment_copies/figures/medulla_jct_telethon';
+end
 
 % funcs for moving subplots around
 nudge = @(pos,x_dir,y_dir)([pos(1)+x_dir pos(2)+y_dir pos(3) pos(4)]);
 expand_plot = @(in,exp_lr,exp_ud)([in(1) in(2) in(3)*exp_lr in(4)*exp_ud]);
 
 save_figures = 1;
-figure_1 = 1;
-figure_2 = 1;
-exp_grp_nums_to_plot = 1:4;
+make_fig_1 = 1;
+make_fig_2 = 1;
 
+
+
+clear figure_iter
+
+%%
+for exp_comp_group = exp_comp_groups
 %% Put all conditions on new rows of timeseries, followed by a tuning curve (2 pages)
 %==========================================================================
 
-if figure_1
+if make_fig_1
 %=FIRST SET OF PLOTS===================================================
     
     % Set up subplots for timeseries, space-time diagrams, and intercept plots
@@ -118,10 +166,12 @@ if figure_1
         for stim_ind = stim_inds
             % Plot the timeseries
             clear graph
-            for exp_grp_iter = exp_grp_nums_to_plot
-                graph.line{exp_grp_iter} = summ_data.(stim_str)(exp_grp_iter).(symm_str).(['avg_' wing_output '_ts']){stim_ind};
-                graph.shade{exp_grp_iter} = summ_data.(stim_str)(exp_grp_iter).(symm_str).(['sem_' wing_output '_ts']){stim_ind};
+            exp_grp_iter = 1;
+            for exp_grp_ind = exp_comp_group.inds
+                graph.line{exp_grp_iter} = summ_data.(stim_str)(exp_grp_ind).(symm_str).(['avg_' wing_output '_ts']){stim_ind};
+                graph.shade{exp_grp_iter} = summ_data.(stim_str)(exp_grp_ind).(symm_str).(['sem_' wing_output '_ts']){stim_ind};
                 graph.color{exp_grp_iter} = default_colors(exp_grp_iter,:);
+                exp_grp_iter = 1 + exp_grp_iter;
             end
 
             subplot('Position',sp_positions{stim_type,1+stim_ind-stim_inds(1)})
@@ -135,9 +185,9 @@ if figure_1
             set(gca,'XTick',[0 2500],'XTickLabel',{'0','2.5 (s)'},'fontsize',font_size_1,'ticklength',2*get(gca,'ticklength'))
             set(gca,'YTick',[-4 0 4],'fontsize',font_size_1)
             if stim_type == 8
-                title(['MC: ' num2str(summ_data.(stim_str)(exp_grp_iter).info.contrast_vals(stim_ind))],'fontsize',font_size_1)
+                title(['MC: ' num2str(summ_data.(stim_str)(exp_grp_ind).info.contrast_vals(stim_ind))],'fontsize',font_size_1)
             else
-                title(['TF: ' num2str(summ_data.(stim_str)(exp_grp_iter).info.tfs(stim_ind)) 'Hz'],'fontsize',font_size_1)
+                title(['TF: ' num2str(summ_data.(stim_str)(exp_grp_ind).info.tfs(stim_ind)) 'Hz'],'fontsize',font_size_1)
             end
             
             if 1+stim_ind-stim_inds(1) == 1
@@ -149,10 +199,12 @@ if figure_1
         % Plot the tuning curve
         clear graph
         for stim_ind = stim_inds
-            for exp_grp_iter = exp_grp_nums_to_plot
-                graph.line{exp_grp_iter}(1+stim_ind-stim_inds(1)) = summ_data.(stim_str)(exp_grp_iter).(symm_str).(['avg_' wing_output]){stim_ind};
-                graph.shade{exp_grp_iter}(1+stim_ind-stim_inds(1)) = summ_data.(stim_str)(exp_grp_iter).(symm_str).(['sem_' wing_output]){stim_ind};
+            exp_grp_iter = 1;
+            for exp_grp_ind = exp_comp_group.inds
+                graph.line{exp_grp_iter}(1+stim_ind-stim_inds(1)) = summ_data.(stim_str)(exp_grp_ind).(symm_str).(['avg_' wing_output]){stim_ind};
+                graph.shade{exp_grp_iter}(1+stim_ind-stim_inds(1)) = summ_data.(stim_str)(exp_grp_ind).(symm_str).(['sem_' wing_output]){stim_ind};
                 graph.color{exp_grp_iter} = default_colors(exp_grp_iter,:);
+                exp_grp_iter = exp_grp_iter + 1;                
             end
         end
 
@@ -168,7 +220,7 @@ if figure_1
         set(gca,'YTick',[-4 0 4],'fontsize',font_size_1)
         set(gca,'XTick',xticks,'XTickLabel',xticklabels,'fontsize',font_size_1,'ticklength',2*get(gca,'ticklength'))
         
-        descriptions{stim_type} = [summ_data.(stim_str)(exp_grp_iter).info.description extra_str_description];
+        descriptions{stim_type} = [summ_data.(stim_str)(exp_grp_ind).info.description extra_str_description];
     end
     
     % Add some stimulus descriptions
@@ -179,10 +231,11 @@ if figure_1
     
     % Add some metadata and legends
     col_space = 0;
-    for exp_grp_iter = exp_grp_nums_to_plot
-        metadata_position = 1 + exp_grp_iter - exp_grp_nums_to_plot(1);
+    exp_grp_iter = 1;
+    for exp_grp_ind = exp_comp_group.inds
+        metadata_position = 1 + exp_grp_iter - exp_comp_group.inds(1);
 
-        metadata_string = {[summ_data.group_info(exp_grp_iter).group_name ' N=' num2str(summ_data.group_info(exp_grp_iter).N)]};
+        metadata_string = {[summ_data.group_info(exp_grp_ind).group_name ' N=' num2str(summ_data.group_info(exp_grp_ind).N)]};
 
         % This only works for ~6 genotypes max
         if mod(metadata_position,2)
@@ -193,12 +246,13 @@ if figure_1
             annotation('Rectangle','Position',[.06+col_space .94 .015 .01],'EdgeColor',default_colors(exp_grp_iter,:),'facecolor',default_colors(exp_grp_iter,:));
             col_space = col_space + .4;
         end
+        exp_grp_iter = exp_grp_iter + 1;
     end
     
     figure_iter = figure_iter +1;
 end
 
-if figure_2
+if make_fig_2
     %=SECOND SET OF PLOTS==================================================
     % not quite as orderly, these are a bit different from each other
     
@@ -268,10 +322,12 @@ if figure_2
         for stim_ind = stim_inds
             % Plot the timeseries
             clear graph
-            for exp_grp_iter = exp_grp_nums_to_plot
-                graph.line{exp_grp_iter} = summ_data.(stim_str)(exp_grp_iter).(symm_str).(['avg_' wing_output '_ts']){stim_ind};
-                graph.shade{exp_grp_iter} = summ_data.(stim_str)(exp_grp_iter).(symm_str).(['sem_' wing_output '_ts']){stim_ind};
+            exp_grp_iter = 1;
+            for exp_grp_ind = exp_comp_group.inds
+                graph.line{exp_grp_iter} = summ_data.(stim_str)(exp_grp_ind).(symm_str).(['avg_' wing_output '_ts']){stim_ind};
+                graph.shade{exp_grp_iter} = summ_data.(stim_str)(exp_grp_ind).(symm_str).(['sem_' wing_output '_ts']){stim_ind};
                 graph.color{exp_grp_iter} = default_colors(exp_grp_iter,:);
+                exp_grp_iter = exp_grp_iter + 1;
             end
 
             subplot('Position',sp_positions{stim_type,1+stim_ind-stim_inds(1)})
@@ -285,7 +341,7 @@ if figure_2
             set(gca,'XTick',[0 2500],'XTickLabel',{'0','2.5 (s)'},'fontsize',font_size_1,'ticklength',2*get(gca,'ticklength'))
             set(gca,'YTick',[-2 0 2],'fontsize',font_size_1)
             if stim_type >=3
-                title([num2str(summ_data.(stim_str)(exp_grp_iter).info.dps(stim_ind)) ' dps'],'fontsize',font_size_1)
+                title([num2str(summ_data.(stim_str)(exp_grp_ind).info.dps(stim_ind)) ' dps'],'fontsize',font_size_1)
             else
                 title(xticklabels(stim_ind))
             end
@@ -297,15 +353,17 @@ if figure_2
         % Plot the tuning curve
         clear graph
         for stim_ind = stim_inds
-            for exp_grp_iter = exp_grp_nums_to_plot
+            exp_grp_iter = 1;
+            for exp_grp_ind = exp_comp_group.inds
                 if stim_type >=3 
-                    graph.line{exp_grp_iter}(1+stim_ind-stim_inds(1)) = summ_data.(stim_str)(exp_grp_iter).(symm_str).avg_lmr_corr_x_pos{stim_ind};
-                    graph.shade{exp_grp_iter}(1+stim_ind-stim_inds(1)) = summ_data.(stim_str)(exp_grp_iter).(symm_str).avg_lmr_corr_x_pos{stim_ind};
+                    graph.line{exp_grp_iter}(1+stim_ind-stim_inds(1)) = summ_data.(stim_str)(exp_grp_ind).(symm_str).avg_lmr_corr_x_pos{stim_ind};
+                    graph.shade{exp_grp_iter}(1+stim_ind-stim_inds(1)) = summ_data.(stim_str)(exp_grp_ind).(symm_str).avg_lmr_corr_x_pos{stim_ind};
                 else
-                    graph.line{exp_grp_iter}(1+stim_ind-stim_inds(1)) = summ_data.(stim_str)(exp_grp_iter).(symm_str).(['avg_' wing_output]){stim_ind};
-                    graph.shade{exp_grp_iter}(1+stim_ind-stim_inds(1)) = summ_data.(stim_str)(exp_grp_iter).(symm_str).(['sem_' wing_output]){stim_ind};
+                    graph.line{exp_grp_iter}(1+stim_ind-stim_inds(1)) = summ_data.(stim_str)(exp_grp_ind).(symm_str).(['avg_' wing_output]){stim_ind};
+                    graph.shade{exp_grp_iter}(1+stim_ind-stim_inds(1)) = summ_data.(stim_str)(exp_grp_ind).(symm_str).(['sem_' wing_output]){stim_ind};
                 end
                 graph.color{exp_grp_iter} = default_colors(exp_grp_iter,:);
+                exp_grp_iter = exp_grp_iter + 1;
             end
         end
 
@@ -327,7 +385,7 @@ if figure_2
         end
         set(gca,'XTick',xticks,'XTickLabel',xticklabels,'fontsize',font_size_1,'ticklength',2*get(gca,'ticklength'))
         
-        descriptions{row} = [summ_data.(stim_str)(exp_grp_iter).info.description extra_str_description];
+        descriptions{row} = [summ_data.(stim_str)(exp_grp_ind).info.description extra_str_description];
     end
     
     %-Optic flow-----------------------------------------------------------
@@ -337,7 +395,7 @@ if figure_2
     row = row + 1;
     
     for stim_ind = 1:6
-        stim_name = summ_data.(stim_str)(exp_grp_iter).info.type{stim_ind};
+        stim_name = summ_data.(stim_str)(exp_grp_ind).info.type{stim_ind};
         switch lower(stim_name)
             case {'lift','pitch'}
                 wing_output = 'lpr';
@@ -354,10 +412,12 @@ if figure_2
         end
         
         clear graph
-        for exp_grp_iter = exp_grp_nums_to_plot
-            graph.line{exp_grp_iter} = summ_data.(stim_str)(exp_grp_iter).(symm_str).(['avg_' wing_output '_ts']){stim_ind};
-            graph.shade{exp_grp_iter} = summ_data.(stim_str)(exp_grp_iter).(symm_str).(['sem_' wing_output '_ts']){stim_ind};
+        exp_grp_iter = 1;
+        for exp_grp_ind = exp_comp_group.inds
+            graph.line{exp_grp_iter} = summ_data.(stim_str)(exp_grp_ind).(symm_str).(['avg_' wing_output '_ts']){stim_ind};
+            graph.shade{exp_grp_iter} = summ_data.(stim_str)(exp_grp_ind).(symm_str).(['sem_' wing_output '_ts']){stim_ind};
             graph.color{exp_grp_iter} = default_colors(exp_grp_iter,:);
+            exp_grp_iter = exp_grp_iter + 1;
         end
 
         subplot('Position',sp_positions{row,col})
@@ -375,10 +435,12 @@ if figure_2
 
         col = col + 1;
         clear graph
-        for exp_grp_iter = exp_grp_nums_to_plot
-            graph.line{exp_grp_iter}(1) = summ_data.(stim_str)(exp_grp_iter).(symm_str).(['avg_' wing_output '_corr_x_pos']){stim_ind};
-            graph.shade{exp_grp_iter}(1) = summ_data.(stim_str)(exp_grp_iter).(symm_str).(['avg_' wing_output '_corr_x_pos']){stim_ind};
+        exp_grp_iter = 1;
+        for exp_grp_ind = exp_comp_group.inds
+            graph.line{exp_grp_iter}(1) = summ_data.(stim_str)(exp_grp_ind).(symm_str).(['avg_' wing_output '_corr_x_pos']){stim_ind};
+            graph.shade{exp_grp_iter}(1) = summ_data.(stim_str)(exp_grp_ind).(symm_str).(['avg_' wing_output '_corr_x_pos']){stim_ind};
             graph.color{exp_grp_iter} = default_colors(exp_grp_iter,:);
+            exp_grp_iter = exp_grp_iter + 1;
         end
 
         subplot('Position',sp_positions{row,col})
@@ -391,16 +453,16 @@ if figure_2
         axis([0 2 0 .5]);
         set(gca,'YTick',[0 .5],'fontsize',font_size_1)
         ylabel('Correlation','fontsize',font_size_1)
-        title(summ_data.(stim_str)(exp_grp_iter).info.type{stim_ind},'fontsize',font_size_1)
+        title(summ_data.(stim_str)(exp_grp_ind).info.type{stim_ind},'fontsize',font_size_1)
     
-        descriptions{row} = summ_data.(stim_str)(exp_grp_iter).info.description;
+        descriptions{row} = summ_data.(stim_str)(exp_grp_ind).info.description;
     end
     
     %-Velocity Nulling-----------------------------------------------------
         
         row = row + 1;
         stim_str = 'vel_null';
-        descriptions{row} = summ_data.(stim_str)(exp_grp_iter).info.description;
+        descriptions{row} = summ_data.(stim_str)(exp_grp_ind).info.description;
         
         % Set up subplots
         nHigh       = 6;       nWide       = 7;
@@ -416,27 +478,26 @@ if figure_2
 
             % plot the intercept calculations
             clear graph
-            for exp_grp_iter = exp_grp_nums_to_plot
+            exp_grp_iter = 1;
+            for exp_grp_ind = exp_comp_group.inds
                 iter = 1; 
                 for stim_ind = stim_inds
-                    graph.line{exp_grp_iter}(iter) = summ_data.vel_null(exp_grp_iter).flip.avg_lmr{stim_ind};
-                    graph.shade{exp_grp_iter}(iter) = summ_data.vel_null(exp_grp_iter).flip.sem_lmr{stim_ind};    
+                    graph.line{exp_grp_iter}(iter) = summ_data.vel_null(exp_grp_ind).flip.avg_lmr{stim_ind};
+                    graph.shade{exp_grp_iter}(iter) = summ_data.vel_null(exp_grp_ind).flip.sem_lmr{stim_ind};    
                     graph.color{exp_grp_iter} = default_colors(exp_grp_iter,:);
                     iter = iter + 1;
                 end
+                exp_grp_iter = exp_grp_iter + 1;
             end
 
             subplot('Position',nudge(vel_null_positions{vel_null_row,vel_set},0,.02))
             plot(-10:10,zeros(21,1),'Color',zero_line_color,'LineWidth',1)
             hold on; box off;
-%             for i = 1:numel(graph)
-%                 plot(1:3,[graph.line{i}],'Color',[0 0 0]);
-%             end
             
             ebh=makeErrorbarTuningCurve(graph,1:3);
             
-            plot(summ_data.vel_null(exp_grp_iter).proc_data.fit_line(vel_set,:),'linestyle','-','Color',[1 0 0],'Linewidth',1);
-            title(['Test Freq = ' num2str(summ_data.vel_null(exp_grp_iter).info.tfs(stim_inds(1)))],'fontsize',font_size_1)
+            plot(summ_data.vel_null(exp_grp_ind).proc_data.fit_line(vel_set,:),'linestyle','-','Color',[1 0 0],'Linewidth',1);
+            title(['Test Freq = ' num2str(summ_data.vel_null(exp_grp_ind).info.tfs(stim_inds(1)))],'fontsize',font_size_1)
             if vel_set == 1; ylabel({'Mean',' \DeltaWBA (V)'},'fontsize',font_size_1); end
             xlabel({'Test Contrast'},'fontsize',font_size_1)
             set(gca,'XTick',[1 2 3],'XTickLabel',{'.09','.27','.45'},'fontsize',font_size_1,'ticklength',2*get(gca,'ticklength'))
@@ -449,9 +510,11 @@ if figure_2
         % plot the log plot
         subplot('Position',nudge(expand_plot(vel_null_positions{vel_null_row,6},2,1),.03,.02))
         
-        for exp_grp_iter = exp_grp_nums_to_plot
+        exp_grp_iter = 1;
+        for exp_grp_ind = exp_comp_group.inds
             hold all
-            lp(exp_grp_iter)=semilogx(test_temp_freq_values,summ_data.vel_null(exp_grp_iter).proc_data.null_contrast','Color',default_colors(exp_grp_iter,:));
+            lp(exp_grp_iter)=semilogx(test_temp_freq_values,summ_data.vel_null(exp_grp_ind).proc_data.null_contrast','Color',default_colors(exp_grp_iter,:));
+            exp_grp_iter = exp_grp_iter + 1;
         end
         
         box off;
@@ -475,10 +538,11 @@ if figure_2
     
     % Add some metadata and legends
     col_space = 0;
-    for exp_grp_iter = exp_grp_nums_to_plot
-        metadata_position = 1 + exp_grp_iter - exp_grp_nums_to_plot(1);
+    exp_grp_iter = 1;
+    for exp_grp_ind = exp_comp_group.inds
+        metadata_position = 1 + exp_grp_iter - exp_comp_group.inds(1);
 
-        metadata_string = {[summ_data.group_info(exp_grp_iter).group_name ' N=' num2str(summ_data.group_info(exp_grp_iter).N)]};
+        metadata_string = {[summ_data.group_info(exp_grp_ind).group_name ' N=' num2str(summ_data.group_info(exp_grp_ind).N)]};
 
         % This only works for ~6 genotypes max
         if mod(metadata_position,2)
@@ -489,20 +553,24 @@ if figure_2
             annotation('Rectangle','Position',[.06+col_space .94 .015 .01],'EdgeColor',default_colors(exp_grp_iter,:),'facecolor',default_colors(exp_grp_iter,:));
             col_space = col_space + .4;
         end
+        exp_grp_iter = exp_grp_iter + 1;
     end
 
     figure_iter = figure_iter +1;
 end
 
-%% export the figure as a pdf
-%==========================================================================
-if save_figures
-    if ~isdir(save_figure_location)
-        mkdir(save_figure_location)
+    %% export the figure as a pdf
+    %==========================================================================
+    if save_figures
+        if ~isdir(save_figure_location)
+            mkdir(save_figure_location)
+        end
+
+        for f = 1:numel(figure_handle)
+            %saveas(figure_handle(figure_iter),fullfile(save_figure_location,[figure_names{figure_iter}]));
+            export_fig(figure_handle(f),fullfile(save_figure_location,['telethon_sum_' exp_comp_group.name]),'-pdf','-nocrop','-append');
+        end
     end
-    
-    for figure_iter = 1:numel(figure_handle)
-        %saveas(figure_handle(figure_iter),fullfile(save_figure_location,[figure_names{figure_iter}]));
-        export_fig(figure_handle(figure_iter),fullfile(save_figure_location,'telethon_summary_figures'),'-pdf','-nocrop','-append');
-    end
+clear figure_*
 end
+

@@ -10,7 +10,7 @@ load(fullfile(experiment_folder,'metadata.mat'));
 experiment.metadata = metadata;
 conditions = metadata.protocol_conditions;
 condition_lengths = [conditions.experiment(:).Duration];
-interspersal_length = conditions.closed_loop.Duration;
+interspersal_length = conditions.interspersal.Duration;
 
 % % Import and parse the data file
 % data_file = fullfile(experiment_folder,'data.daq');

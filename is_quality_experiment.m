@@ -4,7 +4,7 @@ function quality = is_quality_experiment(experiment)
 min_reps = 1;
 min_wbf = 1;
 
-min_pct_complete = .85;
+min_pct_complete = .80;
 quality = 1;
 
 verbose = 1;

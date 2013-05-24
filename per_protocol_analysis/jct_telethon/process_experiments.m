@@ -11,31 +11,55 @@ addpath(fullfile([fileparts(mfilename('fullpath')) filesep '..' filesep '..']));
 
 %% Group experiments by their folders, give more information
 %==========================================================================
-experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/jct_telethon/';
+experiment_set = 2; % 1 is new L1, 2 is medulla stuff, 3 is medulla stuff pt2
+switch experiment_set
+    case 1 % New L1 Stuff
+        experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/L1_telethon_flies/';
 
-experiment_groups(1).folder = 'gmr_48a08ad_gal80ts_kir21';
-experiment_groups(1).name   = 'R48a01AD;+/Kir2.1(DL)';
-experiment_groups(1).type   = 'Ctrl';
+        experiment_groups(1).folder = 'gmr_48a08ad_gal80ts_kir21';
+        experiment_groups(1).name   = 'R48a08AD;+/Kir2.1(DL)';
+        experiment_groups(1).type   = 'Ctrl';
+        experiment_groups(2).folder = 'gmr_75h09ad_40f12dbd_gal80ts_kir21';
+        experiment_groups(2).name   = '75h09AD;R40f12DBD/Kir2.1(DL)';
+        experiment_groups(2).type   = 'L1-new-good';
+        experiment_groups(3).folder = 'gmr_48a08ad_66a01dbd_gal80ts_kir21';
+        experiment_groups(3).name   = 'R48a01AD;R66a01DBD/Kir2.1(DL)';
+        experiment_groups(3).type   = 'L1-old';
+        experiment_groups(4).folder = 'gmr_40f12ad_75h09dbd_gal80ts_kir21';
+        experiment_groups(4).name   = 'R40f12AD;R75h09DBD/Kir2.1(DL)';
+        experiment_groups(4).type   = 'L1-new-ok';
+        experiment_groups(5).folder = 'gmr_20f01ad_48a08dbd_gal80ts_kir21';
+        experiment_groups(5).name   = 'R20f01AD;48a08DBD/Kir2.1(DL)';
+        experiment_groups(5).type   = 'L1-new-poor';
+        experiment_groups(6).folder = 'gmr_48a08ad_40f12DBD_gal80ts_kir21';
+        experiment_groups(6).name   = 'R48a01AD;R40f12DBD/Kir2.1(DL)';
+        experiment_groups(6).type   = 'L1-new-poor';
+    case 2 % New medulla stuff
+        experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/medulla_jct_telethon/';
 
-experiment_groups(2).folder = 'gmr_75h09ad_40f12dbd_gal80ts_kir21';
-experiment_groups(2).name   = '75h09AD;R40f12DBD/Kir2.1(DL)';
-experiment_groups(2).type   = 'L1-new';
+        experiment_groups(1).folder = 'gmr_48a08ad_gal80ts_kir21';
+        experiment_groups(1).name   = 'R48a08AD;+/Kir2.1(DL)';
+        experiment_groups(1).type   = 'Ctrl';
+        experiment_groups(2).folder = 'nern_300_gal80ts_kir21';
+        experiment_groups(2).name   = 'Tm3 (300) / Kir2.1(DL)';
+        experiment_groups(2).type   = 'Tm3';
+        experiment_groups(3).folder = 'nern_313_gal80ts_kir21';
+        experiment_groups(3).name   = 'Tm3 (313) / Kir2.1(DL)';
+        experiment_groups(3).type   = 'Tm3';
+        experiment_groups(4).folder = 'nern_320_gal80ts_kir21';
+        experiment_groups(4).name   = 'Tm4 (320) / Kir2.1(DL)';
+        experiment_groups(4).type   = 'Tm4';
+        experiment_groups(5).folder = 'nern_324_gal80ts_kir21';
+        experiment_groups(5).name   = 'T4/5 (324) / Kir2.1(DL)';
+        experiment_groups(5).type   = 'T4/5';
+ 
+    case 3 % New Medulla stuff pt2
+        experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/medulla_jct_telethon/';
 
-experiment_groups(3).folder = 'gmr_48a08ad_66a01dbd_gal80ts_kir21';
-experiment_groups(3).name   = 'R48a01AD;R66a01DBD/Kir2.1(DL)';
-experiment_groups(3).type   = 'L1-old';
-
-experiment_groups(4).folder = 'gmr_40f12ad_75h09dbd_gal80ts_kir21';
-experiment_groups(4).name   = 'R40f12AD;R75h09DBD/Kir2.1(DL)';
-experiment_groups(4).type   = 'L1-new';
-
-% experiment_groups(5).folder = 'gmr_20f01ad_48a08dbd_gal80ts_kir21';
-% experiment_groups(5).name   = 'R20f01AD;48a08DBD/Kir2.1(DL)';
-% experiment_groups(5).type   = 'L1-new'; did not fly in the first set...
-
-% experiment_groups(6).folder = 'gmr_48a08ad_40f12DBD_gal80ts_kir21';
-% experiment_groups(6).name   = 'R48a01AD;R40f12DBD/Kir2.1(DL)';
-% experiment_groups(6).type   = 'L1-new'; did not fly in the first set...
+        experiment_groups(1).folder = '';
+        experiment_groups(1).name   = '';
+        experiment_groups(1).type   = '';
+end
 
 %% Load in all of the experiment groups via their saved summaries (creating saved summaries if they don't exist)
 %==========================================================================

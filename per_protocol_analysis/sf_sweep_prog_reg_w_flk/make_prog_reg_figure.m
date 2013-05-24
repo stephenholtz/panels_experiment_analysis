@@ -179,6 +179,7 @@ for exp_comp_group = exp_comp_groups
                     graph.shade{exp_ind}(tf,:) = summ_data.(stim_str)(exp_grp_num).(symm_str).(['sem_' wing_output]){tf};
                     graph.color{exp_ind} = default_colors(exp_ind,:);
                 end
+                graph.x_offset(exp_ind) = .1*(iter-2);
             end
             
             if ~(row == 6)
@@ -299,6 +300,7 @@ for exp_comp_group = exp_comp_groups
                         graph.shade{exp_ind}(sf_iter) = summ_data.(stimulus_group{sf_iter})(exp_grp_num).(symm_str).(['sem_' wing_output]){col};
                         graph.color{exp_ind} = default_colors(exp_ind,:);
                     end
+                    graph.x_offset(exp_ind) = .1*(iter-2);
                 end
                 % plot the tuning curve
                 subplot('Position',sp_positions{stim_iter,col})
