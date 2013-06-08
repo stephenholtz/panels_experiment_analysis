@@ -3,26 +3,48 @@
 addpath(genpath('/Users/stephenholtz/matlab-utils')) % add matlab utilities
 addpath(fullfile([fileparts(mfilename('fullpath')) filesep '..' filesep '..'])); % add the panels_experiment_analysis directory in the silliest way possible
 
-experiment_set = 1;
+experiment_set = 2;
 switch experiment_set
     case 1
         exp_comp_groups(1).name = 'control';
-        exp_comp_groups(1).inds = 1;
-        exp_comp_groups(2).name = 'c2_c3_vs_control';
-        exp_comp_groups(2).inds = [1 2];
-        exp_comp_groups(3).name = 'c2_vs_control';
-        exp_comp_groups(3).inds = [1 3];
-        exp_comp_groups(4).name = 'c3_vs_control';
-        exp_comp_groups(4).inds = [1 4];
-        exp_comp_groups(5).name = 'lai_vs_control';
-        exp_comp_groups(5).inds = [1 5 6];
+        exp_comp_groups(1).inds = [1 2];
+        exp_comp_groups(2).name = 'c2_controls';
+        exp_comp_groups(2).inds = [1 2 3 4];
+        exp_comp_groups(3).name = 'c3_controls';
+        exp_comp_groups(3).inds = [1 2 5 6];
+        exp_comp_groups(4).name = 'c2c3_controls';
+        exp_comp_groups(4).inds = [1 2 7];
+        exp_comp_groups(5).name = 'l4_control';
+        exp_comp_groups(5).inds = [1 2 8 9];
+        exp_comp_groups(6).name = 'lai_controls';
+        exp_comp_groups(6).inds = [1 2 10 11];
 
         % Load in the data if needed
-        experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/misc_prog_reg_stims/';
+        experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/finished_misc_prog_reg_stims/';
         if ~exist('summ_data','var')
             load(fullfile(experiment_group_folder_loc,'summ_data'));
         end
-        save_figure_location = '/Users/stephenholtz/local_experiment_copies/figures/misc_prog_reg_stims';
+        save_figure_location = '/Users/stephenholtz/local_experiment_copies/figures/finished_misc_prog_reg_stims/control_comparison';
+    case 2
+        exp_comp_groups(1).name = 'c2_vs_c3';
+        exp_comp_groups(1).inds = [3 4 5 6];
+        exp_comp_groups(2).name = 'c2_vs_lai';
+        exp_comp_groups(2).inds = [3 4 10 11];
+        exp_comp_groups(3).name = 'lai_vs_c3';
+        exp_comp_groups(3).inds = [10 11 5 6];
+        exp_comp_groups(4).name = 'c2c3_vs_c2';
+        exp_comp_groups(4).inds = [7 7 3 4];
+        exp_comp_groups(5).name = 'c2c3_vs_c3';
+        exp_comp_groups(5).inds = [7 7 5 6];
+        exp_comp_groups(6).name = 'c2c3_vs_lai';
+        exp_comp_groups(6).inds = [7 7 10 11];
+
+        % Load in the data if needed
+        experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/finished_misc_prog_reg_stims/';
+        if ~exist('summ_data','var')
+            load(fullfile(experiment_group_folder_loc,'summ_data'));
+        end
+        save_figure_location = '/Users/stephenholtz/local_experiment_copies/figures/finished_misc_prog_reg_stims/experimental_comparison';
 end
 
 % funcs for moving subplots around
@@ -544,11 +566,12 @@ if save_figures
         mkdir(save_figure_location)
     end
     fn = 1;
-    export_fig(figure_handle(fn),fullfile(save_figure_location,['telethon_sum_' exp_comp_group.name]),'-pdf','-nocrop');
+    export_fig(figure_handle(fn),fullfile(save_figure_location,[exp_comp_group.name]),'-pdf','-nocrop');
     for fn = 2:figure_iter
         %saveas(figure_handle(figure_iter),fullfile(save_figure_location,[figure_names{figure_iter}]));
-        export_fig(figure_handle(fn),fullfile(save_figure_location,['telethon_sum_' exp_comp_group.name]),'-pdf','-nocrop','-append');
+        export_fig(figure_handle(fn),fullfile(save_figure_location,[exp_comp_group.name]),'-pdf','-nocrop','-append');
     end
 end
 clear figure_handle figure_iter
+close all % Kind of needed with these figures
 end

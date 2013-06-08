@@ -12,10 +12,10 @@ save_path = '/Users/stephenholtz/temp_space_time/jct_telethon';
 if ~exist(save_path,'dir')
     mkdir(save_path)
 end
+make_gifs = 1;
+make_vids = 1;
 
-make_vids = 0;
-
-for i = 1:numel(C)
+for i = [33 83]
     
     stim_name = ['cond_' num2str(i)];
     
@@ -28,6 +28,10 @@ for i = 1:numel(C)
     
     %panels_arena_simulation.SaveSpaceTimeDiagram(save_file,std_handle,params_handle,snaps_handle);
     panels_arena_simulation.SaveSpaceTimeDiagram(save_file,std_handle,params_handle);
+    if make_gifs
+        stimulus.MakeSaveAnimatedGif(save_file);
+        disp(save_file)
+    end
     
     if make_vids
         mov_handle = stimulus.MakeMovie('green',save_file);

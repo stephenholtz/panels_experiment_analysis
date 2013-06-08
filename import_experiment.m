@@ -8,9 +8,15 @@ function experiment = import_experiment(experiment_folder)
 % Import the metadata/conditions
 load(fullfile(experiment_folder,'metadata.mat'));
 experiment.metadata = metadata;
-conditions = metadata.protocol_conditions;
-condition_lengths = [conditions.experiment(:).Duration];
-interspersal_length = conditions.interspersal.Duration;
+try     % Currently the conditions are saved as a field in metadata
+    conditions = metadata.protocol_conditions;
+    condition_lengths = [conditions.experiment(:).Duration];
+    interspersal_length = conditions.interspersal.Duration;
+catch   % In the old code, conditions were a separate mat file, and the interspersal trial was not explicitly set (it was the last condition)
+    load(fullfile(experiment_folder,'conditions.mat'));
+    condition_lengths = [conditions(1:end-1).Duration];
+    interspersal_length = conditions(end).Duration;
+end
 
 % % Import and parse the data file
 % data_file = fullfile(experiment_folder,'data.daq');

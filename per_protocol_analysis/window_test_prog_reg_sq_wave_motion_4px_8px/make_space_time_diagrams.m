@@ -13,9 +13,9 @@ if ~exist(save_path,'dir')
     mkdir(save_path)
 end
 
-make_vids = 0;
+make_vids = 1;
 
-for i = 1:numel(C)
+for i = [82 80]%1:numel(C)
     
     stim_name = ['cond_' num2str(i) '_' C(i).PatternName];
     

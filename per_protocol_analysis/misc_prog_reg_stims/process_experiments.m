@@ -11,31 +11,55 @@ addpath(fullfile([fileparts(mfilename('fullpath')) filesep '..' filesep '..']));
 
 % Group experiments by their folders, give more information
 %==========================================================================
-experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/misc_prog_reg_stims';
+experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/finished_misc_prog_reg_stims';
 
 experiment_groups(1).folder = 'gmr_48a08ad_gal80ts_kir21';
 experiment_groups(1).name   = 'R48a08AD;+/Kir2.1(DL)';
 experiment_groups(1).type   = 'Ctrl(a)';
 
-experiment_groups(2).folder = 'gmr_20c11ad_48d11dbd_gal80ts_kir21';
-experiment_groups(2).name   = 'R20c11AD;R48d11DBD/Kir2.1(DL)';
-experiment_groups(2).type   = 'C2/3';
+experiment_groups(2).folder = 'gmr_11d03ad_gal80ts_kir21';
+experiment_groups(2).name   = 'R11d03AD;+/Kir2.1(DL)';
+experiment_groups(2).type   = 'Ctrl(b)';
 
 experiment_groups(3).folder = 'gmr_25b02ad_48d11dbd_gal80ts_kir21';
-experiment_groups(3).name   = 'R25b02ad;R48d11dbd/Kir2.1(DL)';
+experiment_groups(3).name   = 'R25b02AD;R48d11DBD/Kir2.1(DL)';
 experiment_groups(3).type   = 'C2(a)';
 
-experiment_groups(4).folder = 'gmr_35a03ad_29g11dbd_gal80ts_kir21';
-experiment_groups(4).name   = 'R35a03AD;R29g11DBD/Kir2.1(DL)';
-experiment_groups(4).type   = 'C3(a)';
+experiment_groups(4).folder = 'gmr_20c11ad_25b02dbd_gal80ts_kir21';
+experiment_groups(4).name   = 'R20c11AD;R25b02DBD/Kir2.1(DL)';
+experiment_groups(4).type   = 'C2(b)';
 
-experiment_groups(5).folder = 'gmr_92a01ad_17d06dbd_gal80ts_kir21';
-experiment_groups(5).name   = 'R92a01AD;R17d06DBD/Kir2.1(DL)';
-experiment_groups(5).type   = 'LAI(a)';
+experiment_groups(5).folder = 'gmr_26h02ad_29g11dbd_gal80ts_kir21';
+experiment_groups(5).name   = 'R26h02AD;R29g11DBD/Kir2.1(DL)';
+experiment_groups(5).type   = 'C3(a)';
 
-experiment_groups(6).folder = 'gmr_92a01ad_66a02dbd_gal80ts_kir21';
-experiment_groups(6).name   = 'R92a01AD;66a02DBD/Kir2.1(DL)';
-experiment_groups(6).type   = 'LAI(b)';
+experiment_groups(6).folder = 'gmr_35a03ad_29g11dbd_gal80ts_kir21';
+experiment_groups(6).name   = 'R35a03AD;R29g11DBD/Kir2.1(DL)';
+experiment_groups(6).type   = 'C3(b)';
+
+experiment_groups(7).folder = 'gmr_20c11ad_48d11dbd_gal80ts_kir21';
+experiment_groups(7).name   = 'R20c11AD;R48D11DBD/Kir2.1(DL)';
+experiment_groups(7).type   = 'C2/3';
+
+experiment_groups(8).folder = 'gmr_31c06ad_19d05dbd_gal80ts_kir21';
+experiment_groups(8).name   = 'R31c06AD;R19d05DBD/Kir2.1(DL)';
+experiment_groups(8).type   = 'L4(a)';
+
+experiment_groups(9).folder = 'gmr_34g07ad_19d05dbd_gal80ts_kir21';
+experiment_groups(9).name   = 'R34g07AD;R19d05DBD/Kir2.1(DL)';
+experiment_groups(9).type   = 'L4(b)';
+
+experiment_groups(10).folder = 'gmr_92a01ad_17d06dbd_gal80ts_kir21';
+experiment_groups(10).name   = 'R92a01AD;R17d06DBD/Kir2.1(DL)';
+experiment_groups(10).type   = 'LAI(a)';
+
+experiment_groups(11).folder = 'gmr_92a01ad_66a02dbd_gal80ts_kir21';
+experiment_groups(11).name   = 'R92a01AD;R66a02DBD/Kir2.1(DL)';
+experiment_groups(11).type   = 'LAI(b)';
+
+%experiment_groups(12).folder = '';
+%experiment_groups(12).name   = '/Kir2.1(DL)';
+%experiment_groups(12).type   = 'LAI(c)-strong';
 
 % Load in all of the experiment groups via their saved summaries (creating saved summaries if they don't exist)
 %==========================================================================
@@ -451,14 +475,14 @@ for exp_grp_num = 1:numel(experiment_groups)
     summ_data.group_info(exp_grp_num).group_folder = experiment_groups(exp_grp_num).folder;
     summ_data.group_info(exp_grp_num).N = size(experiment_groups(exp_grp_num).parsed_data,2);
     summ_data.group_info(exp_grp_num).normalization_val = summ_data.overall_mean_turn_resp/summ_data.mean_turn_resp(exp_grp_num);    
-    
+
     for cg_num = 1:numel(cond_group)
-        
+
         cond_group_name = cond_group(cg_num).name;
-        
+
         % Copy info from cond_group struct
         summ_data.(cond_group_name)(exp_grp_num).info = cond_group(cg_num);
-        
+
         return_struct.daq_channel       = 'lmr';        % lmr is turning channel
         return_struct.normalization_val = summ_data.group_info(exp_grp_num).normalization_val;
         return_struct.average_oper      = @nanmean;     % can be @nanmean @median etc...
@@ -481,10 +505,10 @@ for exp_grp_num = 1:numel(experiment_groups)
                 return_struct.inds = cond_group(cg_num).inds(:,2);
                 return_struct.flip_condition = 0*return_struct.inds;
             end
-            
+
             for ws = {'lmr'}
                 wing_sig = ws{1};
-                
+
                 return_struct.timeseries_oper   = @(x,~)(x);
                 return_struct.daq_channel       = wing_sig;
                 return_struct.average_type      = 'all';
