@@ -393,7 +393,7 @@ switch experiment_set
 end
 
 figure_iter = 1;
-for comp_field = {'c2','c3','c2c3','l4'}
+for comp_field = {'l4'}%{'c2','c3','c2c3','l4'}
     comp_field = comp_field{1}; %#ok<FXSET> % Why not.
     for fig_src = {'lam_30_full','lam_30_prog','lam_30_reg','lam_60_full','lam_60_prog','lam_60_reg','rev_phi_lam_60_full','rev_phi_lam_60_prog','rev_phi_lam_60_reg'}
         fig_src = fig_src{1}; %#ok<FXSET> % Why not.

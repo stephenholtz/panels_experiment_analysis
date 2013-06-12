@@ -26,12 +26,12 @@ experiment_groups(3).folder = 'gmr_20c11ad_48d11dbd_gal80ts_kir21';
 experiment_groups(3).name   = '20c11AD;48d11DBD/Kir2.1(DL)';
 experiment_groups(3).type   = 'C2/3';
 
-experiment_groups(4).folder = 'gmr_20c11ad_25b02dbd_gal80ts_kir21';
-experiment_groups(4).name   = '20c11AD;25b02DBD/Kir2.1(DL)';
+experiment_groups(4).folder = 'gmr_25b02ad_48d11dbd_gal80ts_kir21';
+experiment_groups(4).name   = '25b02AD;48d11DBD/Kir2.1(DL)';
 experiment_groups(4).type   = 'C2(a)';
 
-experiment_groups(5).folder = 'gmr_25b02ad_48d11dbd_gal80ts_kir21';
-experiment_groups(5).name   = '25b02AD;48d11DBD/Kir2.1(DL)';
+experiment_groups(5).folder = 'gmr_20c11ad_25b02dbd_gal80ts_kir21';
+experiment_groups(5).name   = '20c11AD;25b02DBD/Kir2.1(DL)';
 experiment_groups(5).type   = 'C2(b)';
 
 experiment_groups(6).folder = 'gmr_35a03ad_29g11dbd_gal80ts_kir21';
@@ -350,7 +350,7 @@ switch experiment_set
 end
 
 figure_iter = 1;
-for comp_field = {'c2'}%{'ctrl','c2','c3','c2c3','l4'}
+for comp_field = {'ctrl','c2','c3','c2c3','l4'}
     comp_field = comp_field{1}; %#ok<FXSET> % Why not.
     for fig_src = {'prog_motion_tf_2','reg_motion_tf_2','both_sides_motion_tf_2','prog_motion_tf_6','reg_motion_tf_6','both_sides_motion_tf_6','prog_motion_tf_12','reg_motion_tf_12','both_sides_motion_tf_12'}
         fig_src = fig_src{1}; %#ok<FXSET> % Why not.

@@ -5,10 +5,10 @@ addpath(genpath('/Users/stephenholtz/matlab-utils')) % add matlab utilities
 addpath(genpath('~/panels_experiments'));
 
 % Load in conditions from the experimental protocol
-C = sf_sweep_up_down_w_flk;
+C = simple_flicker_v1;
 C = C.experiment;
 
-save_path = '/Users/stephenholtz/temp_space_time/sf_sweep_up_down_w_flk';
+save_path = '/Users/stephenholtz/temp_space_time/simple_flicker_v1';
 
 if ~exist(save_path,'dir')
     mkdir(save_path)
@@ -43,5 +43,4 @@ for i = 1:numel(C)
     end
     
     close all
-    
 end

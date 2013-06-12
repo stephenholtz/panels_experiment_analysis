@@ -595,6 +595,7 @@ switch experiment_set
         symm_str = 'flip';
         wing_output = 'lmr';
         %y_range = [-1.5 2];
+        %y_range = [-2 2];
         %y_range = [-1.25 3.5];
         y_range = [-1.25 2.25];
         y_tick = [y_range(1) 0 y_range(2)];
@@ -637,10 +638,11 @@ prog_reg_1Hz_flicker_cond_strings   = {'lam_30_reg_w_1Hz_flk','lam_30_prog_w_1Hz
 prog_reg_2Hz_flicker_cond_strings   = {'lam_30_reg_w_2Hz_flk','lam_30_prog_w_2Hz_flk','lam_60_reg_w_2Hz_flk','lam_60_prog_w_2Hz_flk'};
 prog_reg_17pct_noise_cond_strings   = {'lam_30_reg_w_17_noise','lam_30_prog_w_17_noise','lam_30_full_w_17_noise','lam_60_reg_w_17_noise','lam_60_prog_w_17_noise','lam_60_full_w_17_noise'};
 prog_reg_50pct_noise_cond_strings   = {'lam_30_reg_w_50_noise','lam_30_prog_w_50_noise','lam_30_full_w_50_noise','lam_60_reg_w_50_noise','lam_60_prog_w_50_noise','lam_60_full_w_50_noise'};
+rev_phi_cond_strings                = {'rev_phi_lam_60_reg','rev_phi_lam_60_prog','rev_phi_lam_60_full'};
 all_conds = {bar_cond_strings{:},edge_cond_strings{:},block_rand_cond_strings{:},prog_reg_cond_strings{:},prog_reg_17pct_noise_cond_strings{:},prog_reg_50pct_noise_cond_strings{:},prog_reg_1Hz_flicker_cond_strings{:}};
 for comp_field = {'c2'}%{'ctrl','c2','c3','c2c3','l4','lai'}
     comp_field = comp_field{1}; %#ok<FXSET> % Why not.
-    for fig_src = {bar_cond_strings{:},edge_cond_strings{:}}
+    for fig_src = edge_cond_strings 
         fig_src = fig_src{1}; %#ok<FXSET> % Why not.
 
         % Plot a tuning curve
@@ -677,8 +679,8 @@ for comp_field = {'c2'}%{'ctrl','c2','c3','c2c3','l4','lai'}
         x_axis_vec = 1:numel(summ_data.(fig_src)(1).info.tfs);
         esh=makeErrorbarTuningCurve(graph,x_axis_vec);
         axis([.75 numel(summ_data.(fig_src)(1).info.tfs)+.25 y_range]);
-        %xlabel('Temporal Frequency (Hz)','FontName',fs.axis_font,'fontsize',fs.axis_font_size)
-        xlabel('Degrees/Second','FontName',fs.axis_font,'fontsize',fs.axis_font_size)
+        xlabel('Temporal Frequency (Hz)','FontName',fs.axis_font,'fontsize',fs.axis_font_size)
+        %xlabel('Degrees/Second','FontName',fs.axis_font,'fontsize',fs.axis_font_size)
         ylabel('Mean \DeltaWBA','FontName',fs.axis_font,'fontsize',fs.axis_font_size)
         set(gca,'YTick',y_tick,'FontName',fs.axis_font,'fontsize',fs.axis_font_size,'color',fs.bkg_color,'YColor',fs.axis_color,'XColor',fs.axis_color)
         set(gca,'XTick',x_axis_vec,'XTickLabel',summ_data.(fig_src)(1).info.tfs,'fontsize',fs.axis_font_size,'FontName',fs.axis_font,'ticklength',2*get(gca,'ticklength'))
@@ -710,7 +712,7 @@ for comp_field = {'c2'}%{'ctrl','c2','c3','c2c3','l4','lai'}
         num_stims = numel(summ_data.(fig_src)(exp_grp_ind).(symm_str).(['avg_' wing_output '_ts']));
         
         nHigh       = 1;            heightGap   = 0;     widthGap    = 0;
-        nWide       = num_stims;    heightOffset= 0;     widthOffset = 0.24;
+        nWide       = num_stims;    heightOffset= 0.075;     widthOffset = 0.24;
         ts_positions = getFullPageSubplotPositions(nWide,nHigh,widthGap,heightGap,widthOffset,heightOffset);
         figure_handle = figure('Name',figure_name,'ToolBar','none','MenuBar','none','NumberTitle','off','Color',fs.bkg_color,'Position',figure_size,'PaperOrientation','portrait'); %#ok<*SAGROW>
         
@@ -735,15 +737,18 @@ for comp_field = {'c2'}%{'ctrl','c2','c3','c2c3','l4','lai'}
             x_axis_vec = [0 numel(graph.line{1})];
             esh=makeErrorShadedTimeseries(graph);
             axis([x_axis_vec y_range]);
+            vel_str = 'Hz';
             if stim_ind == 1
                 %xlabel('Time','FontName',fs.axis_font,'fontsize',fs.axis_font_size)
                 ylabel('Mean \DeltaWBA','FontName',fs.axis_font,'fontsize',fs.axis_font_size)
                 set(gca,'YTick',y_tick,'FontName',fs.axis_font,'fontsize',fs.axis_font_size,'color',fs.bkg_color,'YColor',fs.axis_color,'XColor',fs.axis_color)
                 set(gca,'XTick',x_axis_vec,'XTickLabel',{num2str(x_axis_vec(1)),[num2str(x_axis_vec(2)) ' (ms)']},'fontsize',fs.axis_font_size,'FontName',fs.axis_font,'ticklength',2*get(gca,'ticklength'))
+                title({'',[num2str(summ_data.(fig_src)(1).info.tfs(stim_ind)) vel_str]},'Color',fs.font_color,'fontsize',fs.axis_font_size,'FontName',fs.axis_font)        
             elseif stim_ind == 2
-                title(summ_data.(fig_src)(1).info.description,'Color',fs.font_color,'fontsize',fs.axis_font_size,'FontName',fs.axis_font)        
+                title({summ_data.(fig_src)(1).info.description,[num2str(summ_data.(fig_src)(1).info.tfs(stim_ind)) vel_str]},'Color',fs.font_color,'fontsize',fs.axis_font_size,'FontName',fs.axis_font)        
                 axis off
             else
+                title({'',[num2str(summ_data.(fig_src)(1).info.tfs(stim_ind)) vel_str]},'Color',fs.font_color,'fontsize',fs.axis_font_size,'FontName',fs.axis_font)
                 axis off
             end
         end
