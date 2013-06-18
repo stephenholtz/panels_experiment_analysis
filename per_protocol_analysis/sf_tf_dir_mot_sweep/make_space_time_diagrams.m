@@ -5,17 +5,17 @@ addpath(genpath('/Users/stephenholtz/matlab-utils')) % add matlab utilities
 addpath(genpath('~/panels_experiments'));
 
 % Load in conditions from the experimental protocol
-C = simple_flicker_v1;
+C = sf_tf_dir_mot_sweep;
 C = C.experiment;
 
-save_path = '/Users/stephenholtz/temp_space_time/simple_flicker_v1';
+save_path = '/Users/stephenholtz/temp_space_time/sf_tf_dir_mot_sweep';
 
 if ~exist(save_path,'dir')
     mkdir(save_path)
 end
 
 make_stds = 1;
-make_vids = 1;
+make_vids = 0;
 make_gifs = 0;
 
 for i = 1:numel(C)

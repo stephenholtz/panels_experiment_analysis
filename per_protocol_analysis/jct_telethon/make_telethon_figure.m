@@ -5,7 +5,7 @@
 addpath(genpath('/Users/stephenholtz/matlab-utils')) % add matlab utilities
 addpath(fullfile([fileparts(mfilename('fullpath')) filesep '..' filesep '..'])); % add the panels_experiment_analysis directory in the silliest way possible
 
-experiment_set = 2;
+experiment_set = 3;
 switch experiment_set
     case 1 % New L1 stuff
         exp_comp_groups(1).name = 'control'; %
@@ -43,17 +43,21 @@ switch experiment_set
         if ~exist('summ_data','var')
             load(fullfile(experiment_group_folder_loc,'summ_data'));
         end
-        save_figure_location = '/Users/stephenholtz/local_experiment_copies/figures/medulla_jct_telethon';
+        save_figure_location = '/Users/stephenholtz/local_experiment_copies/figures/medulla_jct_telethon_1';
     case 3 % New medulla stuff pt2
-        exp_comp_groups(1).name = 'controls'; %
-        exp_comp_groups(1).inds = [1];
+        exp_comp_groups(1).name = 't5_vs_controls'; %
+        exp_comp_groups(1).inds = [1 2];
+        exp_comp_groups(2).name = 't2_vs_controls'; %
+        exp_comp_groups(2).inds = [1 3 4];
+        exp_comp_groups(3).name = 't3_vs_controls'; %
+        exp_comp_groups(3).inds = [1 5];
 
         % Load in the data if needed
         experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/medulla_jct_telethon/';
         if ~exist('summ_data','var')
             load(fullfile(experiment_group_folder_loc,'summ_data'));
         end
-        save_figure_location = '/Users/stephenholtz/local_experiment_copies/figures/medulla_jct_telethon';
+        save_figure_location = '/Users/stephenholtz/local_experiment_copies/figures/medulla_jct_telethon_2';
 end
 
 % funcs for moving subplots around
@@ -562,7 +566,7 @@ end
     %% export the figure as a pdf
     %==========================================================================
     if save_figures
-        if ~isdir(save_figure_location)
+        if ~exist(save_figure_location,'dir')
             mkdir(save_figure_location)
         end
 

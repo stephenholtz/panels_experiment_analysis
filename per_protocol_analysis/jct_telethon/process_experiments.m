@@ -11,7 +11,7 @@ addpath(fullfile([fileparts(mfilename('fullpath')) filesep '..' filesep '..']));
 
 %% Group experiments by their folders, give more information
 %==========================================================================
-experiment_set = 2; % 1 is new L1, 2 is medulla stuff, 3 is medulla stuff pt2
+experiment_set = 3; % 1 is new L1, 2 is medulla stuff, 3 is medulla stuff pt2
 switch experiment_set
     case 1 % New L1 Stuff
         experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/L1_telethon_flies/';
@@ -52,13 +52,24 @@ switch experiment_set
         experiment_groups(5).folder = 'nern_324_gal80ts_kir21';
         experiment_groups(5).name   = 'T4/5 (324) / Kir2.1(DL)';
         experiment_groups(5).type   = 'T4/5';
- 
     case 3 % New Medulla stuff pt2
         experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/medulla_jct_telethon/';
 
-        experiment_groups(1).folder = '';
-        experiment_groups(1).name   = '';
-        experiment_groups(1).type   = '';
+        experiment_groups(1).folder = 'gmr_48a08ad_gal80ts_kir21';
+        experiment_groups(1).name   = 'R48a08AD;+/Kir2.1(DL)';
+        experiment_groups(1).type   = 'Ctrl';
+        experiment_groups(2).folder = 'nern_303_gal80ts_kir21';
+        experiment_groups(2).name   = 'T5 (303) / Kir2.1(DL)';
+        experiment_groups(2).type   = 'T5';
+        experiment_groups(3).folder = 'nern_318_gal80ts_kir21';
+        experiment_groups(3).name   = 'T2 (318) / Kir2.1(DL)';
+        experiment_groups(3).type   = 'T2';
+        experiment_groups(4).folder = 'nern_319_gal80ts_kir21';
+        experiment_groups(4).name   = 'T2 (303) / Kir2.1(DL)';
+        experiment_groups(4).type   = 'T2'; % This might be T2/3
+        experiment_groups(5).folder = 'nern_326_gal80ts_kir21';
+        experiment_groups(5).name   = 'T3 (326) / Kir2.1(DL)';
+        experiment_groups(5).type   = 'T3';
 end
 
 %% Load in all of the experiment groups via their saved summaries (creating saved summaries if they don't exist)
