@@ -11,7 +11,7 @@ addpath(fullfile([fileparts(mfilename('fullpath')) filesep '..' filesep '..']));
 
 % Group experiments by their folders, give more information
 %==========================================================================
-experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/finished_misc_prog_reg_stims';
+experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/sf_tf_dir_mot_sweep';
 
 experiment_groups(1).folder = 'gmr_48a08ad_gal80ts_kir21';
 experiment_groups(1).name   = 'R48a08AD;+/Kir2.1(DL)';
@@ -97,28 +97,93 @@ clear overwrite_saved_summaries i
 % Regressive
 % Progressive + Flicker
 % Regressive + Flicker
+% Flicker Only
 
 % @ 'Users/stephenholtz/panels_experiments/protocols/sf_sweep_prog_reg/misc_prog_reg_stims.m';
 i=0;
 
-% Progressive
+% motion both sides 
 i=i+1;
-cond_group(i).name = 'prog_tf_sweep';
-cond_group(i).description = 'Progressive TF Sweep. ';
-cond_group(i).inds =  [];
+cond_group(i).name = 'bilateral_motion';
+cond_group(i).description = 'Bilateral (CW) Motion';
+cond_group(i).inds =  [02,01;04,03;06,05;08,07;...
+                       10,09;12,11;14,13;16,15;... 
+                       18,17;20,19;22,21;24,23;...
+                       26,25;28,27;30,29;32,31;...
+                       34,33;36,35;38,37;40,39];
 cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
-cond_group(i).tfs = [];
+cond_group(i).tfs = repmat([.5 2 6 14],1,5);
+cond_group(i).sfs = [repmat(2,1,4) repmat(4,1,4) repmat(6,1,4) repmat(8,1,4) repmat(10,1,4)]*3.75*2;
+cond_group(i).dir = 'cw';
 
+% combined progressive
 i=i+1;
-cond_group(i).name = 'prog_sf_sweep';
-cond_group(i).description = 'Progressive SF Sweep. ';
-cond_group(i).inds =  [];
+cond_group(i).name = 'progressive';
+cond_group(i).description = 'Progressive (CW)';
+cond_group(i).inds =  [42,49;44,51;46,53;48,55;...
+                       58,65;60,67;62,69;64,71;...
+                       74,81;76,83;78,85;80,87;...
+                       90,97;92,99;94,101;96,103;...
+                       106,113;108,115;110,117;112,119];
 cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
-cond_group(i).tfs = [];
+cond_group(i).tfs = repmat([.5 2 6 14],1,5);
+cond_group(i).sfs = [repmat(2,1,4) repmat(4,1,4) repmat(6,1,4) repmat(8,1,4) repmat(10,1,4)]*3.75*2;
+cond_group(i).dir = 'cw';
 
-% Regressive
+% Combined Regressive
+i=i+1;
+cond_group(i).name = 'regressive';
+cond_group(i).description = 'Regressive (CW)';
+cond_group(i).inds =  [50,41;52,43;54,45;56,47;...
+                       66,57;68,59;70,61;72,63;...
+                       82,73;84,75;86,77;88,79;...
+                       98,89;100,91;102,93;104,95;...
+                       114,105;116,107;118,109;120,111];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
+cond_group(i).tfs = repmat([.5 2 6 14],1,5);
+cond_group(i).sfs = [repmat(2,1,4) repmat(4,1,4) repmat(6,1,4) repmat(8,1,4) repmat(10,1,4)]*3.75*2;
+cond_group(i).dir = 'CW';
 
+% Combined Progressive + Flicker
+i=i+1;
+cond_group(i).name = 'progressive_w_flk';
+cond_group(i).description = 'Progressive (CW) with Flicker';
+cond_group(i).inds =  [130,121;132,123;134,125;136,127;...
+                       146,137;148,139;150,141;152,143;...
+                       162,153;164,155;166,157;168,159;...
+                       178,169;180,171;182,173;184,175;...
+                       194,185;196,187;198,189;200,191];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
+cond_group(i).tfs = repmat([.5 2 6 14],1,5);
+cond_group(i).sfs = [repmat(2,1,4) repmat(4,1,4) repmat(6,1,4) repmat(8,1,4) repmat(10,1,4)]*3.75*2;
+cond_group(i).dir = 'CW';
 
+% Combined Regressive + Flicker
+i=i+1;
+cond_group(i).name = 'regressive_w_flk';
+cond_group(i).description = 'Regressive (CW) with Flicker';
+cond_group(i).inds =  [122,129;124,131;126,133;128,135;...
+                       138,145;140,147;142,149;144,151;...
+                       154,161;156,163;158,165;160,167;...
+                       170,177;172,179;174,181;176,183;...
+                       186,193;188,195;190,197;192,199];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
+cond_group(i).tfs = repmat([.5 2 6 14],1,5);
+cond_group(i).sfs = [repmat(2,1,4) repmat(4,1,4) repmat(6,1,4) repmat(8,1,4) repmat(10,1,4)]*3.75*2;
+cond_group(i).dir = 'CW';
+
+% Flicker
+i=i+1;
+cond_group(i).name = 'flicker';
+cond_group(i).description = 'Flicker';
+cond_group(i).inds =  [201,205;202,206;203,207;204,208;...
+                       209,213;210,214;211,215;212,216;...
+                       217,221;218,222;219,223;220,224;...
+                       225,229;226,230;227,231;228,232];
+cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
+cond_group(i).tfs = repmat([.5 2 6 14],1,5);
+cond_group(i).sfs = [repmat(2,1,4) repmat(4,1,4) repmat(8,1,4) repmat(24,1,4)]*3.75*2;
+cond_group(i).dir = 'CW';
 
 % Pull out conditions from experiment groups
 %==========================================================================

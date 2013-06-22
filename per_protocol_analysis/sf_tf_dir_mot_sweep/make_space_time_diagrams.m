@@ -18,7 +18,7 @@ make_stds = 1;
 make_vids = 0;
 make_gifs = 0;
 
-for i = 1:numel(C)
+for i = 201:numel(C)
     
     stim_name = ['cond_' num2str(i) '_' C(i).PatternName];
     
@@ -42,5 +42,6 @@ for i = 1:numel(C)
         disp(save_file)
     end
     
-    close all
+    close all force
+    clear stimulus force
 end
