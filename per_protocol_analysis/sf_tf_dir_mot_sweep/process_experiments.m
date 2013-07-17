@@ -1,9 +1,10 @@
-% process_experiments
+% process_experiments 
 % Load in groups of experiments (sorted by folders) and pull out
 % information on specific conditions (or groups of conditions) for further
 % analysis / plotting.
 %
 % Save a summary file as well: summ_data.mat 
+% press 'CTRL' + '='
 
 % Add a few things to the path.
 addpath(genpath('/Users/stephenholtz/matlab-utils')) % add matlab utilities
@@ -11,54 +12,105 @@ addpath(fullfile([fileparts(mfilename('fullpath')) filesep '..' filesep '..']));
 
 % Group experiments by their folders, give more information
 %==========================================================================
-experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/sf_tf_dir_mot_sweep';
+exp_grp_folder = 1;
+switch exp_grp_folder 
+    case 1
+        experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/sf_tf_dir_mot_sweep/';
+        
+        experiment_groups(1).folder     = 'gmr_48a08ad_gal80ts_kir21';
+        experiment_groups(1).name       = 'R48a08AD;+/Kir2.1(DL)';
+        experiment_groups(1).type       = 'Ctrl(a)';
+        
+        experiment_groups(2).folder     = 'gmr_29g11dbd_gal80ts_kir21';
+        experiment_groups(2).name       = '+;R29g11DBD/Kir2.1(DL)';
+        experiment_groups(2).type       = 'Ctrl(b)';
 
-experiment_groups(1).folder = 'gmr_48a08ad_gal80ts_kir21';
-experiment_groups(1).name   = 'R48a08AD;+/Kir2.1(DL)';
-experiment_groups(1).type   = 'Ctrl(a)';
-% 
-% experiment_groups(2).folder = 'gmr_11d03ad_gal80ts_kir21';
-% experiment_groups(2).name   = 'R11d03AD;+/Kir2.1(DL)';
-% experiment_groups(2).type   = 'Ctrl(b)';
-% 
-% experiment_groups(3).folder = 'gmr_25b02ad_48d11dbd_gal80ts_kir21';
-% experiment_groups(3).name   = 'R25b02AD;R48d11DBD/Kir2.1(DL)';
-% experiment_groups(3).type   = 'C2(a)';
-% 
-% experiment_groups(4).folder = 'gmr_20c11ad_25b02dbd_gal80ts_kir21';
-% experiment_groups(4).name   = 'R20c11AD;R25b02DBD/Kir2.1(DL)';
-% experiment_groups(4).type   = 'C2(b)';
-% 
-% experiment_groups(5).folder = 'gmr_26h02ad_29g11dbd_gal80ts_kir21';
-% experiment_groups(5).name   = 'R26h02AD;R29g11DBD/Kir2.1(DL)';
-% experiment_groups(5).type   = 'C3(a)';
-% 
-% experiment_groups(6).folder = 'gmr_35a03ad_29g11dbd_gal80ts_kir21';
-% experiment_groups(6).name   = 'R35a03AD;R29g11DBD/Kir2.1(DL)';
-% experiment_groups(6).type   = 'C3(b)';
-% 
-% experiment_groups(7).folder = 'gmr_20c11ad_48d11dbd_gal80ts_kir21';
-% experiment_groups(7).name   = 'R20c11AD;R48D11DBD/Kir2.1(DL)';
-% experiment_groups(7).type   = 'C2/3';
-% 
-% experiment_groups(8).folder = 'gmr_92a10ad_17d06dbd_gal80ts_kir21';
-% experiment_groups(8).name   = 'R92a01AD;R17d06DBD/Kir2.1(DL)';
-% experiment_groups(8).type   = 'LAI(a)';
-% 
-% experiment_groups(9).folder = 'gmr_92a10ad_66a02dbd_gal80ts_kir21';
-% experiment_groups(9).name   = 'R92a01AD;R66a02DBD/Kir2.1(DL)';
-% experiment_groups(9).type   = 'LAI(b)';
-% 
-% experiment_groups(10).folder = 'gmr_92a10ad_54d12dbd_gal80ts_kir21';
-% experiment_groups(10).name   = '/Kir2.1(DL)';
-% experiment_groups(10).type   = 'LAI(c)-strong';
+        experiment_groups(3).folder     = 'gmr_25b02ad_48d11dbd_gal80ts_kir21';
+        experiment_groups(3).name       = 'R25b02AD;R48d11DBD/Kir2.1(DL)';
+        experiment_groups(3).type       = 'C2(a)';
+
+        experiment_groups(4).folder     = 'gmr_20c11ad_25b02dbd_gal80ts_kir21';
+        experiment_groups(4).name       = 'R20c11AD;R25b02DBD/Kir2.1(DL)';
+        experiment_groups(4).type       = 'C2(b)';
+
+        experiment_groups(5).folder     = 'gmr_26h02ad_29g11dbd_gal80ts_kir21';
+        experiment_groups(5).name       = 'R26h02AD;R29g11DBD/Kir2.1(DL)';
+        experiment_groups(5).type       = 'C3(a)';
+
+        experiment_groups(6).folder     = 'gmr_35a03ad_29g11dbd_gal80ts_kir21';
+        experiment_groups(6).name       = 'R35a03AD;R29g11DBD/Kir2.1(DL)';
+        experiment_groups(6).type       = 'C3(b)';
+
+        experiment_groups(7).folder     = 'gmr_20c11ad_48d11dbd_gal80ts_kir21';
+        experiment_groups(7).name       = 'R20c11AD;R48D11DBD/Kir2.1(DL)';
+        experiment_groups(7).type       = 'C2/3';
+
+        experiment_groups(8).folder     = 'gmr_92a10ad_17d06dbd_gal80ts_kir21';
+        experiment_groups(8).name       = 'R92a01AD;R17d06DBD/Kir2.1(DL)';
+        experiment_groups(8).type       = 'LAI(a)';
+
+        experiment_groups(9).folder     = 'gmr_92a10ad_66a02dbd_gal80ts_kir21';
+        experiment_groups(9).name       = 'R92a01AD;R66a02DBD/Kir2.1(DL)';
+        experiment_groups(9).type       = 'LAI(b)';
+
+        experiment_groups(10).folder    = 'gmr_54d12ad_92a10dbd_gal80ts_kir21';
+        experiment_groups(10).name      = 'R54d12AD;R92a10DBD/Kir2.1(DL)';
+        experiment_groups(10).type      = 'LAI(c)';
+
+        experiment_groups(11).folder     = 'uka_gal80ts_kir21';
+        experiment_groups(11).name       = 'uka';
+        experiment_groups(11).type       = 'uka';
+        
+    case 2
+        experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/sf_tf_dir_mot_sweep/';
+        
+        experiment_groups(1).folder     = 'gmr_48a08ad_gal80ts_kir21';
+        experiment_groups(1).name       = 'R48a08AD;+/Kir2.1(DL)';
+        experiment_groups(1).type       = 'Ctrl(a)';
+        
+        experiment_groups(2).folder     = 'gmr_29g11dbd_gal80ts_kir21';
+        experiment_groups(2).name       = '+;R29g11DBD/Kir2.1(DL)';
+        experiment_groups(2).type       = 'Ctrl(b)';
+
+        experiment_groups(3).folder     = 'gmr_25b02ad_48d11dbd_gal80ts_kir21';
+        experiment_groups(3).name       = 'R25b02AD;R48d11DBD/Kir2.1(DL)';
+        experiment_groups(3).type       = 'C2(a)';
+        
+        experiment_groups(4).folder     = 'gmr_35a03ad_29g11dbd_gal80ts_kir21';
+        experiment_groups(4).name       = 'R35a03AD;R29g11DBD/Kir2.1(DL)';
+        experiment_groups(4).type       = 'C3(b)';
+        
+        experiment_groups(5).folder     = 'gmr_92a10ad_17d06dbd_gal80ts_kir21';
+        experiment_groups(5).name       = 'R92a01AD;R17d06DBD/Kir2.1(DL)';
+        experiment_groups(5).type       = 'LAI(a)';
+        
+    case 3
+        experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/sf_tf_dir_mot_sweep/';
+        
+        experiment_groups(1).folder     = 'gmr_48a08ad_gal80ts_kir21';
+        experiment_groups(1).name       = 'R48a08AD;+/Kir2.1(DL)';
+        experiment_groups(1).type       = 'Ctrl(a)';
+        
+        experiment_groups(2).folder     = 'gmr_29g11dbd_gal80ts_kir21';
+        experiment_groups(2).name       = '+;R29g11DBD/Kir2.1(DL)';
+        experiment_groups(2).type       = 'Ctrl(b)';
+
+    case 4
+        experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/sf_tf_dir_mot_sweep_test/';
+        
+        experiment_groups(1).folder     = 'gmr_20c11ad_48d11dbd_gal80ts_kir21';
+        experiment_groups(1).name       = 'R20c11AD;R48D11DBD/Kir2.1(DL)';
+        experiment_groups(1).type       = 'C2/3';
+end
 
 % Load in all of the experiment groups via their saved summaries (creating saved summaries if they don't exist)
 %==========================================================================
 save_summaries = 1;
 
-% this creates: experiment_group(folder#).parsed_data(experiment#).data(condition#).lmr(rep#,:)
-for i = 1:numel(experiment_groups)
+% this creates (in CMU style):
+% experiment_group(folder#).parsed_data(experiment#).data(condition#).lmr(rep#,:)
+group_numbers_to_process = 1:numel(experiment_groups);
+for i = group_numbers_to_process
     if ~isfield(experiment_groups(i),'metadata') || isempty(experiment_groups(i).metadata)
         % import/save a group summary if it does not already exist
         experiment_group_summary = fullfile(experiment_group_folder_loc,experiment_groups(i).folder,[experiment_groups(i).folder '.mat']);
@@ -66,28 +118,39 @@ for i = 1:numel(experiment_groups)
 
         if ~exist(experiment_group_summary,'file')
             experiment_group = import_experiment_group(fullfile(experiment_group_folder_loc,experiment_groups(i).folder),save_summaries);
-            experiment_groups(i).parsed_data    = [experiment_group.parsed_data]; %#ok<*SAGROW>
-            experiment_groups(i).metadata       = experiment_group.metadata;
+            for j = 1:numel(experiment_group)
+                experiment_groups(i).parsed_data(j) 	= experiment_group(j).parsed_data; %#ok<*SAGROW>
+                try experiment_groups(i).metadata(j)    = experiment_group(j).metadata;
+                catch % Sometimes there are new metadata fields added in
+                    for fn=fieldnames(experiment_group(j-1).metadata)';
+                        if ~isfield(experiment_group(j).metadata,fn)
+                            experiment_groups(i).metadata(j).(fn{1}) = '';
+                        else
+                            experiment_groups(i).metadata(j).(fn{1}) = experiment_group(j).metadata.(fn{1});
+                        end
+                    end
+                end
+            end
             clear experiment_group
         else
             load(experiment_group_summary); % loads experiment_group variable
-            try
-                experiment_groups(i).parsed_data 	= [experiment_group.parsed_data];
-                experiment_groups(i).metadata       = [experiment_group.metadata];
-            catch
-                disp('metadata or parsed_data fields are not all the same... removing extra field')
-                for j = 1:numel(experiment_group)
-                    if isfield(experiment_group(j).metadata,'time_taken')
-                        experiment_group(j).metadata = rmfield(experiment_group(j).metadata,'time_taken');
+            for j = 1:numel(experiment_group)
+                experiment_groups(i).parsed_data(j) 	= experiment_group(j).parsed_data;
+                try experiment_groups(i).metadata(j)    = experiment_group(j).metadata;
+                catch % Sometimes there are new metadata fields added in
+                    for fn=fieldnames(experiment_group(j-1).metadata)';
+                        if ~isfield(experiment_group(j).metadata,fn)
+                            experiment_groups(i).metadata(j).(fn{1}) = '';
+                        else
+                            experiment_groups(i).metadata(j).(fn{1}) = experiment_group(j).metadata.(fn{1});
+                        end
                     end
                 end
-                experiment_groups(i).metadata = [experiment_group.metadata];
             end
             clear experiment_group
         end
     end
 end
-clear overwrite_saved_summaries i
 
 % Set up condition indicies to stimulus type mapping
 %==========================================================================
@@ -142,7 +205,7 @@ cond_group(i).inds =  [50,41;52,43;54,45;56,47;...
 cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = repmat([.5 2 6 14],1,5);
 cond_group(i).sfs = [repmat(2,1,4) repmat(4,1,4) repmat(6,1,4) repmat(8,1,4) repmat(10,1,4)]*3.75*2;
-cond_group(i).dir = 'CW';
+cond_group(i).dir = 'cw';
 
 % Combined Progressive + Flicker
 i=i+1;
@@ -156,7 +219,7 @@ cond_group(i).inds =  [130,121;132,123;134,125;136,127;...
 cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = repmat([.5 2 6 14],1,5);
 cond_group(i).sfs = [repmat(2,1,4) repmat(4,1,4) repmat(6,1,4) repmat(8,1,4) repmat(10,1,4)]*3.75*2;
-cond_group(i).dir = 'CW';
+cond_group(i).dir = 'cw';
 
 % Combined Regressive + Flicker
 i=i+1;
@@ -170,7 +233,7 @@ cond_group(i).inds =  [122,129;124,131;126,133;128,135;...
 cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = repmat([.5 2 6 14],1,5);
 cond_group(i).sfs = [repmat(2,1,4) repmat(4,1,4) repmat(6,1,4) repmat(8,1,4) repmat(10,1,4)]*3.75*2;
-cond_group(i).dir = 'CW';
+cond_group(i).dir = 'cw';
 
 % Flicker
 i=i+1;
@@ -183,7 +246,7 @@ cond_group(i).inds =  [201,205;202,206;203,207;204,208;...
 cond_group(i).flip_inds = [0*ones(size(cond_group(i).inds,1),1), 1*ones(size(cond_group(i).inds,1),1)];
 cond_group(i).tfs = repmat([.5 2 6 14],1,5);
 cond_group(i).sfs = [repmat(2,1,4) repmat(4,1,4) repmat(8,1,4) repmat(24,1,4)]*3.75*2;
-cond_group(i).dir = 'CW';
+cond_group(i).dir = 'cw';
 
 % Pull out conditions from experiment groups
 %==========================================================================
@@ -297,15 +360,6 @@ for exp_grp_num = 1:numel(experiment_groups)
             
             summ_data.(cond_group_name)(exp_grp_num).(sym_type).avg_x_ts = a;
             summ_data.(cond_group_name)(exp_grp_num).(sym_type).sem_x_ts = e;
-            
-            % No need for y position here.
-            %return_struct.timeseries_oper   = @(x,~)(x);
-            %return_struct.daq_channel       = 'y_pos';
-            %return_struct.average_type      = 'all';
-            %[a,e] = get_experiment_condition_responses(experiment_groups(exp_grp_num),return_struct);
-            % 
-            %summ_data.(cond_group_name)(exp_grp_num).(sym_type).avg_y_ts = a;
-            %summ_data.(cond_group_name)(exp_grp_num).(sym_type).sem_y_ts = e;
         end
     end
 end

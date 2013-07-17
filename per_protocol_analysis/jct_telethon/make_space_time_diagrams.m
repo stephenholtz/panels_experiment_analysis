@@ -15,7 +15,7 @@ end
 make_gifs = 1;
 make_vids = 1;
 
-for i = [33 83]
+for i = [65]
     
     stim_name = ['cond_' num2str(i)];
     

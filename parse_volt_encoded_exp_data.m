@@ -6,7 +6,7 @@ DURATIONTOLERANCE       = 0.05;
 SAMPLERATE              = 1000;
 
 % Split Needed Chans from the .daq file
-raw_data         = daqread(data_file);         
+raw_data        = daqread(data_file);         
 encoded_signal  = raw_data(:,7);
 
 % Find all the times where adjacent voltage values differ by a
@@ -40,8 +40,8 @@ end
 
 % Some error checking on the diff between voltage_values (all should be
 % just about equal...)
-if range(diff(voltage_values)) > ANALOGTOLERANCE*5 % sometimes there is an offset with the first value... no idea why
-    error('Problem with parsing voltage values: diff is inconsistent');
+if range(diff(voltage_values)) > ANALOGTOLERANCE*5
+    error('Problem with parsing voltage values: diff is inconsistent.');
 end
 
 parsed_exp_data = [];

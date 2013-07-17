@@ -5,7 +5,7 @@
 addpath(genpath('/Users/stephenholtz/matlab-utils')) % add matlab utilities
 addpath(fullfile([fileparts(mfilename('fullpath')) filesep '..' filesep '..'])); % add the panels_experiment_analysis directory in the silliest way possible
 
-experiment_set = 3;
+experiment_set = 5;
 switch experiment_set
     case 1 % New L1 stuff
         exp_comp_groups(1).name = 'control'; %
@@ -44,6 +44,7 @@ switch experiment_set
             load(fullfile(experiment_group_folder_loc,'summ_data'));
         end
         save_figure_location = '/Users/stephenholtz/local_experiment_copies/figures/medulla_jct_telethon_1';
+        
     case 3 % New medulla stuff pt2
         exp_comp_groups(1).name = 't5_vs_controls'; %
         exp_comp_groups(1).inds = [1 2];
@@ -58,6 +59,50 @@ switch experiment_set
             load(fullfile(experiment_group_folder_loc,'summ_data'));
         end
         save_figure_location = '/Users/stephenholtz/local_experiment_copies/figures/medulla_jct_telethon_2';
+        
+    case 4 % New medulla stuff pt3
+        exp_comp_groups(1).name = '314_vs_controls'; %
+        exp_comp_groups(1).inds = [1 2];
+        exp_comp_groups(2).name = '317_vs_controls'; %
+        exp_comp_groups(2).inds = [1 3];
+        exp_comp_groups(3).name = '328_vs_controls'; %
+        exp_comp_groups(3).inds = [1 4];
+        
+        % Load in the data if needed
+        experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/medulla_jct_telethon/';
+        if ~exist('summ_data','var')
+            load(fullfile(experiment_group_folder_loc,'summ_data'));
+        end
+        save_figure_location = '/Users/stephenholtz/local_experiment_copies/figures/medulla_jct_telethon_3';
+        
+    case 5 % New medulla stuff pt4
+        exp_comp_groups(1).name = '325_vs_controls'; %
+        exp_comp_groups(1).inds = [1 2];
+        exp_comp_groups(2).name = '340_vs_controls'; %
+        exp_comp_groups(2).inds = [1 3];
+        exp_comp_groups(3).name = '366_vs_controls'; %
+        exp_comp_groups(3).inds = [1 4];
+        exp_comp_groups(4).name = '385_vs_controls'; %
+        exp_comp_groups(4).inds = [1 5];
+        
+        % Load in the data if needed
+        experiment_group_folder_loc = '/Volumes/janelia_backup/slh_fs_reiserlab_share/tethered_flight_part_4/medulla_jct_telethon/';
+        if ~exist('summ_data','var')
+            load(fullfile(experiment_group_folder_loc,'summ_data'));
+        end
+        save_figure_location = '/Users/stephenholtz/local_experiment_copies/figures/medulla_jct_telethon_4';
+        
+    case 6 % L4 stuff
+        exp_comp_groups(1).name = 'l4_vs_controls'; %
+        exp_comp_groups(1).inds = [1 2 3]; %
+
+        % Load in the data if needed
+        experiment_group_folder_loc = '/Volumes/janelia_backup/slh_fs_reiserlab_share/tethered_flight_part_4/l4_jct_telethon';
+        if ~exist('summ_data','var')
+            load(fullfile(experiment_group_folder_loc,'summ_data'));
+        end
+        save_figure_location = '/Users/stephenholtz/local_experiment_copies/figures/l4_jct_telethon';
+        
 end
 
 % funcs for moving subplots around
@@ -67,9 +112,6 @@ expand_plot = @(in,exp_lr,exp_ud)([in(1) in(2) in(3)*exp_lr in(4)*exp_ud]);
 save_figures = 1;
 make_fig_1 = 1;
 make_fig_2 = 1;
-
-
-
 clear figure_iter
 
 %%

@@ -11,7 +11,7 @@ addpath(fullfile([fileparts(mfilename('fullpath')) filesep '..' filesep '..']));
 
 %% Group experiments by their folders, give more information
 %==========================================================================
-experiment_set = 3; % 1 is new L1, 2 is medulla stuff, 3 is medulla stuff pt2
+experiment_set = 5; % 1 is new L1, 2 is medulla stuff, 3 is medulla stuff pt2
 switch experiment_set
     case 1 % New L1 Stuff
         experiment_group_folder_loc = '/Users/stephenholtz/local_experiment_copies/L1_telethon_flies/';
@@ -70,6 +70,49 @@ switch experiment_set
         experiment_groups(5).folder = 'nern_326_gal80ts_kir21';
         experiment_groups(5).name   = 'T3 (326) / Kir2.1(DL)';
         experiment_groups(5).type   = 'T3';
+    case 4 
+        experiment_group_folder_loc = '/Volumes/janelia_backup/slh_fs_reiserlab_share/tethered_flight_part_4/medulla_jct_telethon/';
+        
+        experiment_groups(1).folder = 'gmr_48a08ad_gal80ts_kir21';
+        experiment_groups(1).name   = 'R48a08AD;+/Kir2.1(DL)';
+        experiment_groups(1).type   = 'Ctrl';
+        experiment_groups(2).folder = 'nern_314_gal80ts_kir21';
+        experiment_groups(2).name   = 'M9 to Lobula Neuron(314) / Kir2.1(DL)';
+        experiment_groups(2).type   = 'M9 to Lobula Neuron';
+        experiment_groups(3).folder = 'nern_317_gal80ts_kir21';
+        experiment_groups(3).name   = 'Medulla Intrisic 1 (M9) (317) / Kir2.1(DL)';
+        experiment_groups(3).type   = 'Medulla Intrisic 1 (M9) ';
+        experiment_groups(4).folder = 'nern_328_gal80ts_kir21';
+        experiment_groups(4).name   = 'Medulla Intrisic 2 (M9) (328) / Kir2.1(DL)';
+        experiment_groups(4).type   = 'Medulla Intrisic 2 (M9) ';
+    case 5 % 
+        experiment_group_folder_loc = '/Volumes/janelia_backup/slh_fs_reiserlab_share/tethered_flight_part_4/medulla_jct_telethon/';
+        experiment_groups(1).folder = 'gmr_48a08ad_gal80ts_kir21';
+        experiment_groups(1).name   = 'R48a08AD;+/Kir2.1(DL)';
+        experiment_groups(1).type   = 'Ctrl';
+        experiment_groups(2).folder = 'nern_325_gal80ts_kir21';
+        experiment_groups(2).name   = 'LPTCs (325) / Kir2.1(DL)';
+        experiment_groups(2).type   = 'Most LPTCs';
+        experiment_groups(3).folder = 'nern_340_gal80ts_kir21';
+        experiment_groups(3).name   = 'Tm-like-cell 1(340) / Kir2.1(DL)';
+        experiment_groups(3).type   = 'Tm-like-cell 1';
+        experiment_groups(4).folder = 'nern_366_gal80ts_kir21';
+        experiment_groups(4).name   = 'T4 (366) / Kir2.1(DL)';
+        experiment_groups(4).type   = 'T4'; 
+        experiment_groups(5).folder = 'nern_385_gal80ts_kir21';
+        experiment_groups(5).name   = 'Tm-like-cell 2(385) / Kir2.1(DL)';
+        experiment_groups(5).type   = 'Tm-like-cell 2'; 
+    case 6 % the L4 redux
+        experiment_group_folder_loc = '/Volumes/janelia_backup/slh_fs_reiserlab_share/tethered_flight_part_4/l4_jct_telethon/';
+        experiment_groups(1).folder = 'gmr_48a08ad_gal80ts_kir21';
+        experiment_groups(1).name   = 'R48a08AD;+/Kir2.1(DL)';
+        experiment_groups(1).type   = 'Ctrl';
+        experiment_groups(2).folder = 'gmr_31c06ad_34g07dbd_gal80ts_kir21';
+        experiment_groups(2).name   = 'R31c06AD;R34g07DBD/Kir2.1(DL)';
+        experiment_groups(2).type   = 'L4(a)';
+        experiment_groups(3).folder = 'gmr_20a03ad_31c06dbd_gal80ts_kir21';
+        experiment_groups(3).name   = 'R20a03AD;R31c06DBD/Kir2.1(DL)';
+        experiment_groups(3).type   = 'L4(b)';
 end
 
 %% Load in all of the experiment groups via their saved summaries (creating saved summaries if they don't exist)
@@ -77,7 +120,6 @@ end
 save_summaries = 1;
 
 % this creates: experiment_group(folder#).parsed_data(experiment#).data(condition#).lmr(rep#,:)
-
 for i = 1:numel(experiment_groups)
     if ~isfield(experiment_groups(i),'metadata') || isempty(experiment_groups(i).metadata)
         % import/save a group summary if it does not already exist
@@ -86,13 +128,35 @@ for i = 1:numel(experiment_groups)
 
         if ~exist(experiment_group_summary,'file')
             experiment_group = import_experiment_group(fullfile(experiment_group_folder_loc,experiment_groups(i).folder),save_summaries);
-            experiment_groups(i).parsed_data    = [experiment_group.parsed_data]; %#ok<*SAGROW>
-            experiment_groups(i).metadata       = experiment_group.metadata;
+            for j = 1:numel(experiment_group)
+                experiment_groups(i).parsed_data(j) 	= experiment_group(j).parsed_data; %#ok<*SAGROW>
+                try experiment_groups(i).metadata(j)    = experiment_group(j).metadata;
+                catch % Sometimes there are new metadata fields added in
+                    for fn=fieldnames(experiment_group(j-1).metadata)';
+                        if ~isfield(experiment_group(j).metadata,fn)
+                            experiment_groups(i).metadata(j).(fn{1}) = '';
+                        else
+                            experiment_groups(i).metadata(j).(fn{1}) = experiment_group(j).metadata.(fn{1});
+                        end
+                    end
+                end
+            end
             clear experiment_group
         else
             load(experiment_group_summary); % loads experiment_group variable
-            experiment_groups(i).parsed_data 	= [experiment_group.parsed_data];
-            experiment_groups(i).metadata       = [experiment_group.metadata];
+            for j = 1:numel(experiment_group)
+                experiment_groups(i).parsed_data(j) 	= experiment_group(j).parsed_data;
+                try experiment_groups(i).metadata(j)    = experiment_group(j).metadata;
+                catch % Sometimes there are new metadata fields added in
+                    for fn=fieldnames(experiment_group(j-1).metadata)';
+                        if ~isfield(experiment_group(j).metadata,fn)
+                            experiment_groups(i).metadata(j).(fn{1}) = '';
+                        else
+                            experiment_groups(i).metadata(j).(fn{1}) = experiment_group(j).metadata.(fn{1});
+                        end
+                    end
+                end
+            end
             clear experiment_group
         end
     end
